@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>一个查询API引发的对前后端职责的思考 | Jeffrey&#39;s Blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="前后端分离,软件工程,设计模式" />
+    
+    <meta name="description" content="问题描述有一个在线博客系统，系统提供了一个API，前端只需要传递参数：(开始日期，结束日期)，然后就会返回一个这样的JSON:{日期1:新文章数量,日期2:新文章数量...}。现在来了一个新的需求：用户需要查看当天，本周，本月，最近半年或者一年新发布的文章的数量。现在需要设计后端API供前端调用，那么这个API应该如何设计呢？ 一开始，我想到了3种可能的方案：  直接使用之前的API，前端根据天">
+<meta name="keywords" content="前后端分离,软件工程,设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个查询API引发的对前后端职责的思考">
+<meta property="og:url" content="http://yoursite.com/2017/10/28/一个查询API引发的对前后端职责的思考/index.html">
+<meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="问题描述有一个在线博客系统，系统提供了一个API，前端只需要传递参数：(开始日期，结束日期)，然后就会返回一个这样的JSON:{日期1:新文章数量,日期2:新文章数量...}。现在来了一个新的需求：用户需要查看当天，本周，本月，最近半年或者一年新发布的文章的数量。现在需要设计后端API供前端调用，那么这个API应该如何设计呢？ 一开始，我想到了3种可能的方案：  直接使用之前的API，前端根据天">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oyka0arcw.bkt.clouddn.com/fcfd7effb23a1e6c6603105311e679eb.png">
+<meta property="og:updated_time" content="2017-10-29T02:03:35.081Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个查询API引发的对前后端职责的思考">
+<meta name="twitter:description" content="问题描述有一个在线博客系统，系统提供了一个API，前端只需要传递参数：(开始日期，结束日期)，然后就会返回一个这样的JSON:{日期1:新文章数量,日期2:新文章数量...}。现在来了一个新的需求：用户需要查看当天，本周，本月，最近半年或者一年新发布的文章的数量。现在需要设计后端API供前端调用，那么这个API应该如何设计呢？ 一开始，我想到了3种可能的方案：  直接使用之前的API，前端根据天">
+<meta name="twitter:image" content="http://oyka0arcw.bkt.clouddn.com/fcfd7effb23a1e6c6603105311e679eb.png">
+    
+
+    
+
+    
+        <link rel="icon" href="https://avatars3.githubusercontent.com/u/19466181?s=460&v=4" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Live and learn!</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/软件工程/">软件工程</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-一个查询API引发的对前后端职责的思考" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        一个查询API引发的对前后端职责的思考
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/10/28/一个查询API引发的对前后端职责的思考/" class="article-date">
+            <time datetime="2017-10-28T09:38:56.000Z" itemprop="datePublished">2017-10-28</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/前后端分离/">前后端分离</a>, <a class="tag-link" href="/tags/设计模式/">设计模式</a>, <a class="tag-link" href="/tags/软件工程/">软件工程</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="http://oyka0arcw.bkt.clouddn.com/fcfd7effb23a1e6c6603105311e679eb.png" alt=""></p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>有一个在线博客系统，系统提供了一个API，前端只需要传递参数：(开始日期，结束日期)，然后就会返回一个这样的JSON:<code>{日期1:新文章数量,日期2:新文章数量...}</code>。现在来了一个新的需求：用户需要查看当天，本周，本月，最近半年或者一年新发布的文章的数量。现在需要设计后端API供前端调用，那么这个API应该如何设计呢？</p>
+<p>一开始，我想到了3种可能的方案：</p>
+<ol>
+<li>直接使用之前的API，前端根据天，周，月等单位换算成时间区间，去后端查询出每天的新文章数量，然后在前端累加。</li>
+<li>设计5个API，然后每个API处理不同的单位。</li>
+<li>设计一个API，然后有一个枚举类型的参数表示5种不同的情况。</li>
+</ol>
+<p>我的第一感觉是：方案1是最简单的，方案2看起来好像也可以，方案3感觉有点复杂了。我到底应该选择哪一种方案呢，每种方案的利弊是什么呢？</p>
+<h2 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h2><p>该方案很简单而且看起来很灵活，后端提供一个API，既可以用来获取每天新文章具体数目，又可以用来计算该区间内新总和，那么该方案有什么问题吗？</p>
+<p>我觉得这个方案最大的问题就是暴露了领域知识在前端，这里体现出来的就是前端人员需要计算本周的区间，本月的区间，本年的时间区间。当然这个知识很简单，前端人员肯定都知道怎么换算。但是这确实不应该由前端来处理，为什么呢？</p>
+<ol>
+<li>我个人觉得前端人员的职责主要就是单纯的调用后端的API，然后将数据展示出来。前端人员只需要知道哪些API是来干什么的以及调用的顺序即可。</li>
+<li>单位的转换确实应该由后端完成。单位的概念也属于领域的知识，本例子中的年月日比较简单，但如果是(点，刻，字)这种时间单位呢？后端处理数据，数据的单位转换就应当交给后端完成。</li>
+</ol>
+<p>举个详细的例子来说明由后端处理的好处：查询2017年9月的新文章数量。如果后端来做2017年9月的查询，那么就有这几种很好的实现：</p>
+<ol>
+<li>换算成区间，然后使用之前API的代码查询并对结果求和，之后将结果缓存起来。</li>
+<li>后端可以基于时间列创建日期列（如果数据库是MySQL可以使用<a href="https://www.percona.com/blog/2016/03/04/virtual-columns-in-mysql-and-mariadb/" target="_blank" rel="external">Virtual columns</a>），然后在日期列上创建索引。甚至查询结果也可以缓存起来。</li>
+</ol>
+<h2 id="方案二和方案三"><a href="#方案二和方案三" class="headerlink" title="方案二和方案三"></a>方案二和方案三</h2><p>方案二和方案三都没有方案一的问题。之所以现在要将这两个放在一起说，是因为这两个的关系有点类似于面向对象设计里面的<a href="https://martinfowler.com/bliki/FlagArgument.html" target="_blank" rel="external">FlagArgument</a> 问题。其建议不要提供一个唯一的API，然后通过额外的参数表示不同的行为，而是推荐提供多个表示不同行为的API。</p>
+<p><a href="https://martinfowler.com/" target="_blank" rel="external">Martin Fowler</a>讨论FlagArgument时使用了下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Concert</span>...</span></div><div class="line"><span class="class">  <span class="title">public</span> <span class="title">Booking</span> <span class="title">book</span> (<span class="title">Customer</span> <span class="title">aCustomer</span>, <span class="title">boolean</span> <span class="title">isPremium</span>) </span>&#123;...&#125;</div><div class="line"></div><div class="line"><span class="comment">//2</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Concert</span>...</span></div><div class="line"><span class="class">  <span class="title">public</span> <span class="title">Booking</span> <span class="title">regularBook</span>(<span class="title">Customer</span> <span class="title">aCustomer</span>) </span>&#123;...&#125;</div><div class="line">  <span class="function"><span class="keyword">public</span> Booking <span class="title">premiumBook</span><span class="params">(Customer aCustomer)</span> </span>&#123;...&#125;</div></pre></td></tr></table></figure>
+<p>他给出了不要使用FlagArgument的主要原因：</p>
+<blockquote>
+<p>My reasoning here is that the separate methods communicate more clearly what my intention is when I make the call. Instead of having to remember the meaning of the flag variable when I see <code>book(martin, false)</code> I can easily read <code>regularBook(martin)</code>.</p>
+</blockquote>
+<p>从可读性和可维护性说起，假如regularBook的处理逻辑需要修改，那么第二种方式可以更好的定位到所有使用了reqularBook逻辑的地方，第一种方式则比较麻烦。但是这种情况并不是绝对的，在编程语言中的关键字参数或者枚举就可以绕过这个问题:</p>
+<ol>
+<li>比如在Python中，我们可以使用关键字参数，调用方式大概如下<code>ins.book(customer,isPremium=True)</code></li>
+<li>使用或者使用枚举:<code>ins.book(customer,PriceType.Premium)</code></li>
+</ol>
+<p>现在讨论其扩展性，假如新增了一种价格类型，第一种方式需要将isPremium变成一个可以表示3种情况的枚举，而第二种方式则需要增加一个API，如果情况很多，那么第二种方式将会有大量的API产生。大量API主要会带来什么问题？我觉得主要看调用该API的人是谁，如果是后端自己用的API那么没什么问题，但是如果要给前端调用就有问题了：假如前端不关心价格类型。</p>
+<p>举个例子：如果是第一种方式的API，后端需要告诉告诉前端：Hi Jay，我写了一个预定的API，到时候你传递用户编号和价格类型过来给我就可以了。如果是第二种方式则是：Hi Jay，我写了一系列用于预定的API，所有API你都需要传递用户编号过来，如果是XX价格类型，你就调用XXX API，如果是YY价格类型，你就调用YYY API，如果是…。</p>
+<p>如果前端又需要关心价格类型，那么仍然可以采用第一种方式，因为访问后端的API时可以提供命名参数，如：<code>book?price_type=premium</code>。</p>
+<p>因此在博客系统案例中，我最终选择了方案三，设计的API如下：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">GET /recent?range=1m</div><div class="line">range值范围：1d 1w 1m 6m 1y...</div></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://softwareengineering.stackexchange.com/questions/359452/how-do-i-design-a-backend-api-with-a-different-query-range" target="_blank" rel="external">https://softwareengineering.stackexchange.com/questions/359452/how-do-i-design-a-backend-api-with-a-different-query-range</a></p>
+<p><a href="https://softwareengineering.stackexchange.com/questions/147977/is-it-wrong-to-use-a-boolean-parameter-to-determine-behavior" target="_blank" rel="external">https://softwareengineering.stackexchange.com/questions/147977/is-it-wrong-to-use-a-boolean-parameter-to-determine-behavior</a></p>
+<p><a href="https://martinfowler.com/bliki/FlagArgument.html" target="_blank" rel="external">https://martinfowler.com/bliki/FlagArgument.html</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2017/10/28/一个查询API引发的对前后端职责的思考/" data-id="cj9b7bvt10000km3izdsyns8d" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/jefffffrey" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="stack-overflow" href="https://stackoverflow.com/users/6364963/jeffery" target="_blank">
+                        <i class="icon fa fa-stack-overflow"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/28/一个查询API引发的对前后端职责的思考/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/fcfd7effb23a1e6c6603105311e679eb.png)" alt="一个查询API引发的对前后端职责的思考" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/软件工程/">软件工程</a></p>
+                            <p class="item-title"><a href="/2017/10/28/一个查询API引发的对前后端职责的思考/" class="title">一个查询API引发的对前后端职责的思考</a></p>
+                            <p class="item-date"><time datetime="2017-10-28T09:38:56.000Z" itemprop="datePublished">2017-10-28</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/软件工程/">软件工程</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/前后端分离/">前后端分离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件工程/">软件工程</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/前后端分离/" style="font-size: 10px;">前后端分离</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/软件工程/" style="font-size: 10px;">软件工程</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2017 Jeffrey Teo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'jefffffrey';
+    
+    
+    var disqus_url = 'http://yoursite.com/2017/10/28/一个查询API引发的对前后端职责的思考/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
