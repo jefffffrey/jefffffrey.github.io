@@ -3,26 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>一个查询API引发的对前后端职责的思考 | Jeffrey&#39;s Blog</title>
+    <title>MySQL存储过程及函数核心知识点 | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="软件工程,设计模式,前后端分离" />
+        <meta name="keywords" content="数据库,MySQL" />
     
-    <meta name="description" content="问题描述有一个在线博客系统，系统提供了一个API，前端只需要传递参数：(开始日期，结束日期)，然后就会返回一个这样的JSON:{日期1:新文章数量,日期2:新文章数量...}。现在来了一个新的需求：用户需要查看当天，本周，本月，最近半年或者一年新发布的文章的数量。现在需要设计后端API供前端调用，那么这个API应该如何设计呢？ 一开始，我想到了3种可能的方案：  直接使用之前的API，前端根据天">
-<meta name="keywords" content="软件工程,设计模式,前后端分离">
+    <meta name="description" content="本文记录了MySQL存储过程的一些核心知识点，详细内容请参考官方文档。文中的MySQL版本为5.7。 语法CREATE    [DEFINER = &amp;#123; user | CURRENT_USER &amp;#125;]    PROCEDURE sp_name ([proc_parameter[,...]])    [characteristic ...] routine_bodyCREATE">
+<meta name="keywords" content="数据库,MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个查询API引发的对前后端职责的思考">
-<meta property="og:url" content="http://yoursite.com/2017/10/21/一个查询API引发的对前后端职责的思考/index.html">
+<meta property="og:title" content="MySQL存储过程及函数核心知识点">
+<meta property="og:url" content="http://yoursite.com/2017/10/31/MySQL存储过程及函数核心知识点/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
-<meta property="og:description" content="问题描述有一个在线博客系统，系统提供了一个API，前端只需要传递参数：(开始日期，结束日期)，然后就会返回一个这样的JSON:{日期1:新文章数量,日期2:新文章数量...}。现在来了一个新的需求：用户需要查看当天，本周，本月，最近半年或者一年新发布的文章的数量。现在需要设计后端API供前端调用，那么这个API应该如何设计呢？ 一开始，我想到了3种可能的方案：  直接使用之前的API，前端根据天">
+<meta property="og:description" content="本文记录了MySQL存储过程的一些核心知识点，详细内容请参考官方文档。文中的MySQL版本为5.7。 语法CREATE    [DEFINER = &amp;#123; user | CURRENT_USER &amp;#125;]    PROCEDURE sp_name ([proc_parameter[,...]])    [characteristic ...] routine_bodyCREATE">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://oyka0arcw.bkt.clouddn.com/fcfd7effb23a1e6c6603105311e679eb.png">
-<meta property="og:updated_time" content="2017-10-29T02:36:02.260Z">
+<meta property="og:image" content="http://oyka0arcw.bkt.clouddn.com/images.jpeg">
+<meta property="og:updated_time" content="2017-10-31T13:45:35.551Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个查询API引发的对前后端职责的思考">
-<meta name="twitter:description" content="问题描述有一个在线博客系统，系统提供了一个API，前端只需要传递参数：(开始日期，结束日期)，然后就会返回一个这样的JSON:{日期1:新文章数量,日期2:新文章数量...}。现在来了一个新的需求：用户需要查看当天，本周，本月，最近半年或者一年新发布的文章的数量。现在需要设计后端API供前端调用，那么这个API应该如何设计呢？ 一开始，我想到了3种可能的方案：  直接使用之前的API，前端根据天">
-<meta name="twitter:image" content="http://oyka0arcw.bkt.clouddn.com/fcfd7effb23a1e6c6603105311e679eb.png">
+<meta name="twitter:title" content="MySQL存储过程及函数核心知识点">
+<meta name="twitter:description" content="本文记录了MySQL存储过程的一些核心知识点，详细内容请参考官方文档。文中的MySQL版本为5.7。 语法CREATE    [DEFINER = &amp;#123; user | CURRENT_USER &amp;#125;]    PROCEDURE sp_name ([proc_parameter[,...]])    [characteristic ...] routine_bodyCREATE">
+<meta name="twitter:image" content="http://oyka0arcw.bkt.clouddn.com/images.jpeg">
     
 
     
@@ -135,18 +135,18 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/软件工程/">软件工程</a>
+    <a class="page-title-link" href="/categories/数据库/">数据库</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-一个查询API引发的对前后端职责的思考" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-MySQL存储过程及函数核心知识点" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        一个查询API引发的对前后端职责的思考
+        MySQL存储过程及函数核心知识点
         </h1>
     
 
@@ -156,61 +156,106 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2017/10/21/一个查询API引发的对前后端职责的思考/" class="article-date">
-            <time datetime="2017-10-21T12:49:56.000Z" itemprop="datePublished">2017-10-21</time>
+        <a href="/2017/10/31/MySQL存储过程及函数核心知识点/" class="article-date">
+            <time datetime="2017-10-31T13:34:33.000Z" itemprop="datePublished">2017-10-31</time>
         </a>
     </div>
 
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/前后端分离/">前后端分离</a>, <a class="tag-link" href="/tags/设计模式/">设计模式</a>, <a class="tag-link" href="/tags/软件工程/">软件工程</a>
+        <a class="tag-link" href="/tags/MySQL/">MySQL</a>, <a class="tag-link" href="/tags/数据库/">数据库</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p><img src="http://oyka0arcw.bkt.clouddn.com/fcfd7effb23a1e6c6603105311e679eb.png" alt=""></p>
-<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>有一个在线博客系统，系统提供了一个API，前端只需要传递参数：(开始日期，结束日期)，然后就会返回一个这样的JSON:<code>{日期1:新文章数量,日期2:新文章数量...}</code>。现在来了一个新的需求：用户需要查看当天，本周，本月，最近半年或者一年新发布的文章的数量。现在需要设计后端API供前端调用，那么这个API应该如何设计呢？</p>
-<p>一开始，我想到了3种可能的方案：</p>
+            <p>本文记录了MySQL存储过程的一些核心知识点，详细内容请参考<a href="https://dev.mysql.com/doc/refman/5.7/en/create-procedure.html" target="_blank" rel="external">官方文档</a>。文中的MySQL版本为5.7。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">CREATE</div><div class="line">    [DEFINER = &#123; user | CURRENT_USER &#125;]</div><div class="line">    PROCEDURE sp_name ([proc_parameter[,...]])</div><div class="line">    [characteristic ...] routine_body</div><div class="line"></div><div class="line">CREATE</div><div class="line">    [DEFINER = &#123; user | CURRENT_USER &#125;]</div><div class="line">    FUNCTION sp_name ([func_parameter[,...]])</div><div class="line">    RETURNS type</div><div class="line">    [characteristic ...] routine_body</div><div class="line"></div><div class="line">proc_parameter:</div><div class="line">    [ IN | OUT | INOUT ] param_name type</div><div class="line"></div><div class="line">func_parameter:</div><div class="line">    param_name type</div><div class="line"></div><div class="line">type:</div><div class="line">    Any valid MySQL data type</div><div class="line"></div><div class="line">characteristic:</div><div class="line">    COMMENT &apos;string&apos;</div><div class="line">  | LANGUAGE SQL</div><div class="line">  | [NOT] DETERMINISTIC</div><div class="line">  | &#123; CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA &#125;</div><div class="line">  | SQL SECURITY &#123; DEFINER | INVOKER &#125;</div><div class="line"></div><div class="line">routine_body:</div><div class="line">    Valid SQL routine statement</div></pre></td></tr></table></figure>
 <ol>
-<li>直接使用之前的API，前端根据天，周，月等单位换算成时间区间，去后端查询出每天的新文章数量，然后在前端累加。</li>
-<li>设计5个API，然后每个API处理不同的单位。</li>
-<li>设计一个API，然后有一个枚举类型的参数表示5种不同的情况。</li>
+<li>存储过程可以加 <em>db_name</em>限定数据库，不加就使用默认数据库</li>
+<li>默认情况下，MYSQL给</li>
 </ol>
-<p>我的第一感觉是：方案1是最简单的，方案2看起来好像也可以，方案3感觉有点复杂了。我到底应该选择哪一种方案呢，每种方案的利弊是什么呢？</p>
-<h2 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h2><p>该方案很简单而且看起来很灵活，后端提供一个API，既可以用来获取每天新文章具体数目，又可以用来计算该区间内新总和，那么该方案有什么问题吗？</p>
-<p>我觉得这个方案最大的问题就是暴露了领域知识在前端，这里体现出来的就是前端人员需要计算本周的区间，本月的区间，本年的时间区间。当然这个知识很简单，前端人员肯定都知道怎么换算。但是这确实不应该由前端来处理，为什么呢？</p>
+<h3 id="proc-parameter"><a href="#proc-parameter" class="headerlink" title="proc_parameter"></a>proc_parameter</h3><p>默认IN，可以选择OUT，INOUT</p>
+<h3 id="proc-parameter-1"><a href="#proc-parameter-1" class="headerlink" title="proc_parameter"></a>proc_parameter</h3><p>只支持IN</p>
+<h3 id="characteristic"><a href="#characteristic" class="headerlink" title="characteristic"></a>characteristic</h3><ul>
+<li>COMMENT用于写备注</li>
+<li>LANGUAGE这个server被忽略，只是为了符合SQL标准</li>
+<li>DETERMINISTIC和NOT DETERMINISTIC。这个只是创建者自己定义的，MYSQL不会做任何检查。但是如果把<code>NOT DETEMINISTIC</code>定义为<code>DETERMINISTIC</code>，可能导致优化器做出错误的执行计划。相反，把<code>DETEMINISTIC</code>定义为<code>NOT DETERMINISTIC</code>可能让一些可用的优化措施无法使用。如果使用binary logging，需要参考<a href="https://dev.mysql.com/doc/refman/5.7/en/stored-programs-logging.html" target="_blank" rel="external">Binary Logging of Stored Programs</a>.</li>
+<li><code>{ CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA }</code>这组被server忽略</li>
+<li>SQL SECURITY定义谁可以调用。DEFINER表示由DEFINER属性所指定的用户的权限来执行，INVOKER表示以调用这个存储过程的用户的权限来执行。默认DEFINER，且值为CURRENT_USER。如果用户没有过程中需要的权限，那么INVOKER类型过程的就无法调用。</li>
+</ul>
+<h3 id="routine-body"><a href="#routine-body" class="headerlink" title="routine_body"></a>routine_body</h3><p>可以执行<a href="https://dev.mysql.com/doc/refman/5.7/en/sql-syntax-compound-statements.html" target="_blank" rel="external">Compound-Statement</a>.以及DDL语句，同时存储过程支持事务。</p>
+<h2 id="Compiund-Statement"><a href="#Compiund-Statement" class="headerlink" title="Compiund Statement"></a>Compiund Statement</h2><h3 id="BEGIN-END语法"><a href="#BEGIN-END语法" class="headerlink" title="BEGIN END语法"></a>BEGIN END语法</h3><p>语句块，可嵌套，可结合Lable使用。</p>
+<h4 id="Label语法"><a href="#Label语法" class="headerlink" title="Label语法"></a>Label语法</h4><p>可用于标记BEGIN，LOOP，REPEAT以及WHILE语句。可以用ITERATE和LEAVE指令控制流程。</p>
+<h4 id="DECLARE语法"><a href="#DECLARE语法" class="headerlink" title="DECLARE语法"></a>DECLARE语法</h4><p>声明变量，条件处理或者游标。限制如下：</p>
 <ol>
-<li>我个人觉得前端人员的职责主要就是单纯的调用后端的API，然后将数据展示出来。前端人员只需要知道哪些API是来干什么的以及调用的顺序即可。</li>
-<li>单位的转换确实应该由后端完成。单位的概念也属于领域的知识，本例子中的年月日比较简单，但如果是(点，刻，字)这种时间单位呢？后端处理数据，数据的单位转换就应当交给后端完成。</li>
+<li>只能在BEGIN语句中，且必须在最前面</li>
+<li>必须按照变量，游标，条件处理的顺序声明。</li>
 </ol>
-<p>举个详细的例子来说明由后端处理的好处：查询2017年9月的新文章数量。如果后端来做2017年9月的查询，那么就有这几种很好的实现：</p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>所用DECLARE声明，赋值可以使用SET语法，<a href="https://dev.mysql.com/doc/refman/5.7/en/select-into.html" target="_blank" rel="external"><code>SELECT ... INTO var_list</code></a> 或者 <a href="https://dev.mysql.com/doc/refman/5.7/en/fetch.html" target="_blank" rel="external"><code>FETCH ... INTO var_list</code></a></p>
+<p>定义格式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">DECLARE var_name [, var_name] ... type [DEFAULT value]</div></pre></td></tr></table></figure>
+<h4 id="控制流程"><a href="#控制流程" class="headerlink" title="控制流程"></a>控制流程</h4><p>和C语言的类比</p>
+<table>
+<thead>
+<tr>
+<th>MYSQL</th>
+<th style="text-align:left">C</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CASE</td>
+<td style="text-align:left">switch</td>
+<td></td>
+</tr>
+<tr>
+<td>IF</td>
+<td style="text-align:left">if</td>
+<td></td>
+</tr>
+<tr>
+<td>LOOP</td>
+<td style="text-align:left">while(1){}</td>
+<td>用ITERATE模拟continue，LEAVE模拟break</td>
+</tr>
+<tr>
+<td>REPATE</td>
+<td style="text-align:left">do…while</td>
+<td>用ITERATE模拟continue，LEAVE模拟break</td>
+</tr>
+<tr>
+<td>WHILE</td>
+<td style="text-align:left">while</td>
+<td>用ITERATE模拟continue，LEAVE模拟break</td>
+</tr>
+</tbody>
+</table>
+<h4 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h4><p>游标使用的流程遵循：定义，OPEN，FETCH，CLOSE。语法如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">DECLARE cursor_name CURSOR FOR select_statement</div><div class="line">OPEN cursor_name</div><div class="line">FETCH [[NEXT] FROM] cursor_name INTO var_name [, var_name] ...</div><div class="line">CLOSE cursor_name</div></pre></td></tr></table></figure>
+<h4 id="条件处理"><a href="#条件处理" class="headerlink" title="条件处理"></a>条件处理</h4><p>程序执行过程中可能出现一些需要特殊处理的情况，比如继续执行还是推出程序？可以为一个条件定义处理器，条件也可以被命名。</p>
 <ol>
-<li>换算成区间，然后使用之前API的代码查询并对结果求和，之后将结果缓存起来。</li>
-<li>后端可以基于时间列创建日期列（如果数据库是MySQL可以使用<a href="https://www.percona.com/blog/2016/03/04/virtual-columns-in-mysql-and-mariadb/" target="_blank" rel="external">Virtual columns</a>），然后在日期列上创建索引。甚至查询结果也可以缓存起来。</li>
+<li>命名条件使用<a href="https://dev.mysql.com/doc/refman/5.7/en/declare-condition.html" target="_blank" rel="external">DECLARE … CONDITION 语法</a>，此步骤可选。</li>
+<li>定义处理器使用<a href="https://dev.mysql.com/doc/refman/5.7/en/declare-handler.html" target="_blank" rel="external">DECLARE … HANDLER 语法</a></li>
+<li>自己抛出一个条件使用<a href="https://dev.mysql.com/doc/refman/5.7/en/signal.html" target="_blank" rel="external">SIGNAL 语法</a>，定义条件处理器中继续抛出使用<a href="https://dev.mysql.com/doc/refman/5.7/en/resignal.html" target="_blank" rel="external">RESIGNAL 语法</a></li>
+<li>获取错误内容使用 <a href="https://dev.mysql.com/doc/refman/5.7/en/get-diagnostics.html" target="_blank" rel="external">GET DIAGNOSTICS 语法</a> </li>
 </ol>
-<h2 id="方案二和方案三"><a href="#方案二和方案三" class="headerlink" title="方案二和方案三"></a>方案二和方案三</h2><p>方案二和方案三都没有方案一的问题。之所以现在要将这两个放在一起说，是因为这两个的关系有点类似于面向对象设计里面的<a href="https://martinfowler.com/bliki/FlagArgument.html" target="_blank" rel="external">FlagArgument</a> 问题。其建议不要提供一个唯一的API，然后通过额外的参数表示不同的行为，而是推荐提供多个表示不同行为的API。</p>
-<p><a href="https://martinfowler.com/" target="_blank" rel="external">Martin Fowler</a>讨论FlagArgument时使用了下面的例子：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Concert</span>...</span></div><div class="line"><span class="class">  <span class="title">public</span> <span class="title">Booking</span> <span class="title">book</span> (<span class="title">Customer</span> <span class="title">aCustomer</span>, <span class="title">boolean</span> <span class="title">isPremium</span>) </span>&#123;...&#125;</div><div class="line"></div><div class="line"><span class="comment">//2</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Concert</span>...</span></div><div class="line"><span class="class">  <span class="title">public</span> <span class="title">Booking</span> <span class="title">regularBook</span>(<span class="title">Customer</span> <span class="title">aCustomer</span>) </span>&#123;...&#125;</div><div class="line">  <span class="function"><span class="keyword">public</span> Booking <span class="title">premiumBook</span><span class="params">(Customer aCustomer)</span> </span>&#123;...&#125;</div></pre></td></tr></table></figure>
-<p>他给出了不要使用FlagArgument的主要原因：</p>
-<blockquote>
-<p>My reasoning here is that the separate methods communicate more clearly what my intention is when I make the call. Instead of having to remember the meaning of the flag variable when I see <code>book(martin, false)</code> I can easily read <code>regularBook(martin)</code>.</p>
-</blockquote>
-<p>从可读性和可维护性说起，假如regularBook的处理逻辑需要修改，那么第二种方式可以更好的定位到所有使用了reqularBook逻辑的地方，第一种方式则比较麻烦。但是这种情况并不是绝对的，在编程语言中的关键字参数或者枚举就可以绕过这个问题:</p>
-<ol>
-<li>比如在Python中，我们可以使用关键字参数，调用方式大概如下<code>ins.book(customer,isPremium=True)</code></li>
-<li>使用或者使用枚举:<code>ins.book(customer,PriceType.Premium)</code></li>
-</ol>
-<p>现在讨论其扩展性，假如新增了一种价格类型，第一种方式需要将isPremium变成一个可以表示3种情况的枚举，而第二种方式则需要增加一个API，如果情况很多，那么第二种方式将会有大量的API产生。大量API主要会带来什么问题？我觉得主要看调用该API的人是谁，如果是后端自己用的API那么没什么问题，但是如果要给前端调用就有问题了：假如前端不关心价格类型。</p>
-<p>举个例子：如果是第一种方式的API，后端需要告诉告诉前端：Hi Jay，我写了一个预定的API，到时候你传递用户编号和价格类型过来给我就可以了。如果是第二种方式则是：Hi Jay，我写了一系列用于预定的API，所有API你都需要传递用户编号过来，如果是XX价格类型，你就调用XXX API，如果是YY价格类型，你就调用YYY API，如果是…。</p>
-<p>如果前端又需要关心价格类型，那么仍然可以采用第一种方式，因为访问后端的API时可以提供命名参数，如：<code>book?price_type=premium</code>。</p>
-<p>因此在博客系统案例中，我最终选择了方案三，设计的API如下：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><div class="line">GET /recent?range=1m</div><div class="line">range值范围：1d 1w 1m 6m 1y...</div></pre></td></tr></table></figure>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://softwareengineering.stackexchange.com/questions/359452/how-do-i-design-a-backend-api-with-a-different-query-range" target="_blank" rel="external">https://softwareengineering.stackexchange.com/questions/359452/how-do-i-design-a-backend-api-with-a-different-query-range</a></p>
-<p><a href="https://softwareengineering.stackexchange.com/questions/147977/is-it-wrong-to-use-a-boolean-parameter-to-determine-behavior" target="_blank" rel="external">https://softwareengineering.stackexchange.com/questions/147977/is-it-wrong-to-use-a-boolean-parameter-to-determine-behavior</a></p>
-<p><a href="https://martinfowler.com/bliki/FlagArgument.html" target="_blank" rel="external">https://martinfowler.com/bliki/FlagArgument.html</a></p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">-- 命名</div><div class="line">DECLARE division_by_zero CONDITION FOR SQLSTATE &apos;22012&apos;;</div><div class="line"></div><div class="line">-- 定义处理器以及使用RESINGAL</div><div class="line"> DECLARE CONTINUE HANDLER FOR division_by_zero </div><div class="line"> RESIGNAL SET MESSAGE_TEXT = &apos;Division by zero / Denominator cannot be zero&apos;;</div><div class="line"> </div><div class="line">-- GET DIAGNOSTICS语法</div><div class="line">DROP TABLE test.no_such_table;</div><div class="line">-- ERROR 1051 (42S02): Unknown table &apos;test.no_such_table&apos;</div><div class="line">GET DIAGNOSTICS CONDITION 1 @p1 = RETURNED_SQLSTATE, @p2 = MESSAGE_TEXT;</div><div class="line">SELECT @p1, @p2;</div><div class="line">+-------+------------------------------------+</div><div class="line">| @p1   | @p2                                |</div><div class="line">+-------+------------------------------------+</div><div class="line">| 42S02 | Unknown table &apos;test.no_such_table&apos; |</div><div class="line">+-------+------------------------------------+</div></pre></td></tr></table></figure>
+<p>常用的处理器：</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>有许多常见问题是因为MySQL本身的一些限制，可以参考：<a href="https://dev.mysql.com/doc/refman/5.7/en/stored-program-restrictions.html" target="_blank" rel="external">Restrictions on Stored Programs</a>。下面记录一些常见的或者我碰到的问题，欢迎补充。</p>
+<h3 id="FETCH拿不到任何记录"><a href="#FETCH拿不到任何记录" class="headerlink" title="FETCH拿不到任何记录"></a>FETCH拿不到任何记录</h3><p>如果定义的变量名和SELECT的字段名一样，那么可能出现问题，这是MySQL的一个bug，解决方案是不要使变量名和字段名一样。</p>
+<h3 id="ERROR：Cursor-declaration-after-handler-declaration"><a href="#ERROR：Cursor-declaration-after-handler-declaration" class="headerlink" title="ERROR：Cursor declaration after handler declaration"></a>ERROR：Cursor declaration after handler declaration</h3><p>DECLARATION定义顺序错误，类似的还有<code>Variable or condition declaration after cursor or handler declaration</code>错误</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/create-procedure.html" target="_blank" rel="external">https://dev.mysql.com/doc/refman/5.7/en/create-procedure.html</a></p>
+<p><a href="http://chuiliu.github.io/2016/02/28/mysql%E7%9A%84definer%E5%92%8Cinvoker/" target="_blank" rel="external">http://chuiliu.github.io/2016/02/28/mysql%E7%9A%84definer%E5%92%8Cinvoker/</a></p>
+<p><a href="https://my.oschina.net/u/1424662/blog/485118" target="_blank" rel="external">https://my.oschina.net/u/1424662/blog/485118</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/sql-syntax-compound-statements.html" target="_blank" rel="external">https://dev.mysql.com/doc/refman/5.7/en/sql-syntax-compound-statements.html</a></p>
+<p><a href="http://www.yiibai.com/mysql/signal-resignal.html" target="_blank" rel="external">http://www.yiibai.com/mysql/signal-resignal.html</a></p>
+<p><a href="http://www.cnblogs.com/langtianya/p/5534222.html" target="_blank" rel="external">http://www.cnblogs.com/langtianya/p/5534222.html</a></p>
+<p><a href="https://stackoverflow.com/questions/40661398/mysql-cursor-fetch-null" target="_blank" rel="external">https://stackoverflow.com/questions/40661398/mysql-cursor-fetch-null</a></p>
 
         </div>
         <footer class="article-footer">
@@ -218,7 +263,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2017/10/21/一个查询API引发的对前后端职责的思考/" data-id="cj9fo1tz500025d3ikph7nene" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2017/10/31/MySQL存储过程及函数核心知识点/" data-id="cj9fo1txk00005d3ibxcxtie3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -323,16 +368,12 @@
         
 <nav id="article-nav">
     
-        <a href="/2017/10/31/MySQL存储过程及函数核心知识点/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">下一篇</strong>
-        <p class="article-nav-title">
-        
-            MySQL存储过程及函数核心知识点
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
+        <a href="/2017/10/21/一个查询API引发的对前后端职责的思考/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">一个查询API引发的对前后端职责的思考</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
     
 </nav>
 
@@ -457,7 +498,7 @@
     var disqus_shortname = 'jefffffrey';
     
     
-    var disqus_url = 'http://yoursite.com/2017/10/21/一个查询API引发的对前后端职责的思考/';
+    var disqus_url = 'http://yoursite.com/2017/10/31/MySQL存储过程及函数核心知识点/';
     
     (function() {
     var dsq = document.createElement('script');
