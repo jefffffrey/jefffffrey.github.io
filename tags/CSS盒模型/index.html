@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签：: 前后端分离 | Jeffrey&#39;s Blog</title>
+    <title>标签：: CSS盒模型 | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta property="og:type" content="website">
 <meta property="og:title" content="Jeffrey&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/前后端分离/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/CSS盒模型/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
@@ -126,7 +126,7 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>标签：: <em>前后端分离</em>
+    <i class="icon fa fa-tag"></i>标签：: <em>CSS盒模型</em>
     </h1>
 </div>
                         <div class="main-body-content">
@@ -149,17 +149,17 @@
         <article class="article article-summary">
     <div class="article-summary-inner">
         
-        <a href="/2017/10/21/一个查询API引发的对前后端职责的思考/" class="thumbnail">
+        <a href="/2017/11/01/深入理解BFC和Margin-Collapse/" class="thumbnail">
     
     
-        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/fcfd7effb23a1e6c6603105311e679eb.png)" alt="一个查询API引发的对前后端职责的思考" class="thumbnail-image"></span>
+        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/%E5%A4%96%E8%BE%B9%E8%B7%9D%E5%A1%8C%E9%99%B7.png)" alt="深入理解BFC和Margin Collapse" class="thumbnail-image"></span>
     
     
         
 <span class="comment-counter">
     <i class="fa fa-comments-o"></i>
     
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/10/21/一个查询API引发的对前后端职责的思考/">0</span>
+        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/01/深入理解BFC和Margin-Collapse/">0</span>
     
 </span>
 
@@ -170,23 +170,20 @@
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/软件工程/">软件工程</a>
+            <a class="article-category-link" href="/categories/前端/">前端</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/前端/CSS/">CSS</a>
             </div>
-            <div class="date"><time datetime="2017-10-21T12:49:56.000Z" itemprop="datePublished">2017-10-21</time></div>
+            <div class="date"><time datetime="2017-11-01T14:19:05.000Z" itemprop="datePublished">2017-11-01</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2017/10/21/一个查询API引发的对前后端职责的思考/">一个查询API引发的对前后端职责的思考</a>
+        <a href="/2017/11/01/深入理解BFC和Margin-Collapse/">深入理解BFC和Margin Collapse</a>
         </h1>
     
 
         <p class="article-excerpt">
-            
-问题描述有一个在线博客系统，系统提供了一个API，前端只需要传递参数：(开始日期，结束日期)，然后就会返回一个这样的JSON:{日期1:新文章数量,日期2:新文章数量...}。现在来了一个新的需求：用户需要查看当天，本周，本月，最近半年或者一年新发布的文章的数量。现在需要设计后端API供前端调用，那么这个API应该如何设计呢？
-一开始，我想到了3种可能的方案：
-
-直接使用之前的API，前端根据天
+            BFC定义浮动元素和绝对定位元素，非块级盒子的块级容器（例如 inline-blocks, table-cells, 和 table-captions），以及overflow值不为“visiable”的块级盒子，都会为他们的内容创建新的BFC（块级格式上下文）。
+在BFC中，盒子从顶端开始垂直地一个接一个地排列，两个盒子之间的垂直的间隙是由他们的margin 值所决定的。在一个BFC中，两个相邻的
         </p>
     </div>
 </article>
