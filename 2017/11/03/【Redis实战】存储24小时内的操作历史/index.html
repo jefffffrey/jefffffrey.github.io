@@ -3,17 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签：: 数据库 | Jeffrey&#39;s Blog</title>
+    <title>【Redis实战】存储24小时内的操作历史 | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Jeffrey&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/数据库/index.html">
+        <meta name="keywords" content="数据库,Redis" />
+    
+    <meta name="description" content="分析与实现一个消息应用有如下需求：  需要保留用户最近24小时内的所有操作历史 需要频繁的显示最近的10条操作历史给用户 需要频繁的显示24小时内总操作次数  这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以不">
+<meta name="keywords" content="数据库,Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Redis实战】存储24小时内的操作历史">
+<meta property="og:url" content="http://yoursite.com/2017/11/03/【Redis实战】存储24小时内的操作历史/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="分析与实现一个消息应用有如下需求：  需要保留用户最近24小时内的所有操作历史 需要频繁的显示最近的10条操作历史给用户 需要频繁的显示24小时内总操作次数  这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以不">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oyka0arcw.bkt.clouddn.com/redis.png">
+<meta property="og:updated_time" content="2017-11-03T06:35:51.461Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jeffrey&#39;s Blog">
+<meta name="twitter:title" content="【Redis实战】存储24小时内的操作历史">
+<meta name="twitter:description" content="分析与实现一个消息应用有如下需求：  需要保留用户最近24小时内的所有操作历史 需要频繁的显示最近的10条操作历史给用户 需要频繁的显示24小时内总操作次数  这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以不">
+<meta name="twitter:image" content="http://oyka0arcw.bkt.clouddn.com/redis.png">
     
 
     
@@ -126,126 +135,202 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>标签：: <em>数据库</em>
+    <a class="page-title-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据库/Redis/">Redis</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-【Redis实战】存储24小时内的操作历史" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2017" class="archive-year"><i class="icon fa fa-calendar-o"></i>2017</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/11/03/【Redis实战】存储24小时内的操作历史/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/redis.png)" alt="【Redis实战】存储24小时内的操作历史" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/03/【Redis实战】存储24小时内的操作历史/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/Redis/">Redis</a>
-            </div>
-            <div class="date"><time datetime="2017-11-03T03:58:23.000Z" itemprop="datePublished">2017-11-03</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2017/11/03/【Redis实战】存储24小时内的操作历史/">【Redis实战】存储24小时内的操作历史</a>
+        【Redis实战】存储24小时内的操作历史
         </h1>
     
 
-        <p class="article-excerpt">
-            分析与实现一个消息应用有如下需求：
-
-需要保留用户最近24小时内的所有操作历史
-需要频繁的显示最近的10条操作历史给用户
-需要频繁的显示24小时内总操作次数
-
-这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以不
-        </p>
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/11/03/【Redis实战】存储24小时内的操作历史/" class="article-date">
+            <time datetime="2017-11-03T03:58:23.000Z" itemprop="datePublished">2017-11-03</time>
+        </a>
     </div>
-</article>
-    
 
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/10/31/MySQL存储过程及函数核心知识点/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B.jpeg)" alt="MySQL存储过程及函数核心知识点" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/10/31/MySQL存储过程及函数核心知识点/">0</span>
-    
-</span>
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Redis/">Redis</a>, <a class="tag-link" href="/tags/数据库/">数据库</a>
+    </div>
 
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/MySQL/">MySQL</a>
             </div>
-            <div class="date"><time datetime="2017-10-31T13:34:33.000Z" itemprop="datePublished">2017-10-31</time></div>
-        </div>
         
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/10/31/MySQL存储过程及函数核心知识点/">MySQL存储过程及函数核心知识点</a>
-        </h1>
-    
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="分析与实现"><a href="#分析与实现" class="headerlink" title="分析与实现"></a>分析与实现</h2><p>一个消息应用有如下需求：</p>
+<ol>
+<li>需要保留用户最近24小时内的所有操作历史</li>
+<li>需要频繁的显示最近的10条操作历史给用户</li>
+<li>需要频繁的显示24小时内总操作次数</li>
+</ol>
+<p>这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以不用存储过期时间，而是在创建的时候设置好过期时间即可。</p>
+<p>我们给操作历史列表取名为<code>history</code>,之后每当有新的操作发生的时候我们需要在列表中新增一项，同时创建一个新的哈希表：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><div class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; RPUSH history operation:<span class="number">1</span></div><div class="line">(integer) <span class="number">1</span></div><div class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HMSET operation:<span class="number">1</span> time <span class="number">12</span>:<span class="number">23</span> desc o1</div><div class="line">OK</div><div class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; EXPIRE operation:<span class="number">1</span> <span class="number">30</span></div><div class="line">(integer) <span class="number">1</span></div></pre></td></tr></table></figure>
+<p>这样，当需要统计总操作数或者需要显示最近的10条记录的时候，我们需要先遍历history列表，然后删除掉其中已经过期的哈希表的键，最后再返回总条数或者最近10条记录。</p>
+<p>为了减少网络传输时间，我们将删除过期键的功能使用Lua脚本实现并加载到Redis(&gt;2.6.0)中。Lua脚本：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><div class="line"><span class="keyword">while</span> (true)</div><div class="line"><span class="keyword">do</span></div><div class="line">    <span class="keyword">if</span> (redis.call(<span class="string">'EXISTS'</span>, redis.call(<span class="string">'LRANGE'</span>, KEYS[<span class="number">1</span>], <span class="number">0</span>, <span class="number">0</span>)[<span class="number">1</span>]) == <span class="number">1</span>) then</div><div class="line">        <span class="keyword">break</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">if</span> redis.call(<span class="string">'LLEN'</span>, KEYS[<span class="number">1</span>]) == <span class="number">0</span> then</div><div class="line">            <span class="keyword">break</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">        redis.call(<span class="string">'LPOP'</span>, KEYS[<span class="number">1</span>])</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line">local ret = &#123; <span class="string">'ok'</span> &#125;</div><div class="line">ret[<span class="string">'ok'</span>] = <span class="string">'OK'</span></div><div class="line"><span class="keyword">return</span> ret</div></pre></td></tr></table></figure>
+<p>查看本例完整的Python实现可访问<a href="https://gist.github.com/jefffffrey/a5e0f7fb70ce7bb4f34f1ea27eeb6df4" target="_blank" rel="external">Gist</a>。</p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>首先列出我们使用的各个操作的时间复杂度：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>时间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LPUSH</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>HMSET</td>
+<td>O(N)， <code>N</code> 为 <code>field-value</code> 对的数量。</td>
+</tr>
+<tr>
+<td>EXPIRE</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>EXISTS</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>LRANGE</td>
+<td>O(S+N)， <code>S</code> 为偏移量 <code>start</code> ， <code>N</code> 为指定区间内元素的数量。</td>
+</tr>
+<tr>
+<td>LLEN</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>LPOP</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<p>具体到我们实现的功能上来说，各个功能的时间复杂度如下：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新增一条操作记录</td>
+<td>O(N)，N为hash中key的数量</td>
+</tr>
+<tr>
+<td>删除过期的记录</td>
+<td>O(N)，N为本次过期条数</td>
+</tr>
+<tr>
+<td>取最新的10条记录</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://xiewenwei.github.io/blog/2014/08/31/avoid-misusing-redis/" target="_blank" rel="external">避免误用 Redis</a></p>
+<p><a href="http://redisdoc.com/" target="_blank" rel="external">Redis 命令参考</a></p>
+<p><a href="http://www.jianshu.com/p/c16b57c62d04" target="_blank" rel="external">Redis Lua 脚本使用</a></p>
+<p><a href="https://www.redisgreen.net/blog/intro-to-lua-for-redis-programmers/" target="_blank" rel="external">Lua: A Guide for Redis Users</a></p>
+<p><a href="https://quickleft.com/blog/how-to-create-and-expire-list-items-in-redis/" target="_blank" rel="external">How to Create and Expire List Items in Redis</a></p>
 
-        <p class="article-excerpt">
-            本文记录了MySQL存储过程的一些核心知识点，详细内容请参考官方文档。文中的MySQL版本为5.7。
-语法CREATE    [DEFINER = &#123; user | CURRENT_USER &#125;]    PROCEDURE sp_name ([proc_parameter[,...]])    [characteristic ...] routine_bodyCREATE   
-        </p>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2017/11/03/【Redis实战】存储24小时内的操作历史/" data-id="cj9jj0w4c0000j33i4zndkxmu" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
+
+    <section id="comments">
     
-        </div>
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
     
-
-
-    </div></section>
-
+    </section>
 
 
                         </div>
@@ -274,6 +359,19 @@
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/11/01/深入理解BFC和Margin-Collapse/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">深入理解BFC和Margin Collapse</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -435,11 +533,13 @@
     var disqus_shortname = 'jefffffrey';
     
     
+    var disqus_url = 'http://yoursite.com/2017/11/03/【Redis实战】存储24小时内的操作历史/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
