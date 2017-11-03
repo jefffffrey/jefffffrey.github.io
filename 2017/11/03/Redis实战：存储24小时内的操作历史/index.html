@@ -3,26 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>MySQL存储过程及函数核心知识点 | Jeffrey&#39;s Blog</title>
+    <title>Redis实战：存储24小时内的操作历史 | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="数据库,MySQL" />
+        <meta name="keywords" content="数据库,Redis" />
     
-    <meta name="description" content="本文记录了MySQL存储过程的一些核心知识点，详细内容请参考官方文档。文中的MySQL版本为5.7。 语法CREATE    [DEFINER = &amp;#123; user | CURRENT_USER &amp;#125;]    PROCEDURE sp_name ([proc_parameter[,...]])    [characteristic ...] routine_bodyCREATE">
-<meta name="keywords" content="数据库,MySQL">
+    <meta name="description" content="分析与实现一个消息应用有如下需求：  需要保留用户最近24小时内的所有操作历史 需要频繁的显示最近的10条操作历史给用户 需要频繁的显示24小时内总操作次数  这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以">
+<meta name="keywords" content="数据库,Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL存储过程及函数核心知识点">
-<meta property="og:url" content="http://yoursite.com/2017/10/31/MySQL存储过程及函数核心知识点/index.html">
+<meta property="og:title" content="Redis实战：存储24小时内的操作历史">
+<meta property="og:url" content="http://yoursite.com/2017/11/03/Redis实战：存储24小时内的操作历史/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
-<meta property="og:description" content="本文记录了MySQL存储过程的一些核心知识点，详细内容请参考官方文档。文中的MySQL版本为5.7。 语法CREATE    [DEFINER = &amp;#123; user | CURRENT_USER &amp;#125;]    PROCEDURE sp_name ([proc_parameter[,...]])    [characteristic ...] routine_bodyCREATE">
+<meta property="og:description" content="分析与实现一个消息应用有如下需求：  需要保留用户最近24小时内的所有操作历史 需要频繁的显示最近的10条操作历史给用户 需要频繁的显示24小时内总操作次数  这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://oyka0arcw.bkt.clouddn.com/mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B.jpeg">
-<meta property="og:updated_time" content="2017-11-03T03:59:15.276Z">
+<meta property="og:image" content="http://oyka0arcw.bkt.clouddn.com/redis.png">
+<meta property="og:updated_time" content="2017-11-03T04:02:40.620Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL存储过程及函数核心知识点">
-<meta name="twitter:description" content="本文记录了MySQL存储过程的一些核心知识点，详细内容请参考官方文档。文中的MySQL版本为5.7。 语法CREATE    [DEFINER = &amp;#123; user | CURRENT_USER &amp;#125;]    PROCEDURE sp_name ([proc_parameter[,...]])    [characteristic ...] routine_bodyCREATE">
-<meta name="twitter:image" content="http://oyka0arcw.bkt.clouddn.com/mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B.jpeg">
+<meta name="twitter:title" content="Redis实战：存储24小时内的操作历史">
+<meta name="twitter:description" content="分析与实现一个消息应用有如下需求：  需要保留用户最近24小时内的所有操作历史 需要频繁的显示最近的10条操作历史给用户 需要频繁的显示24小时内总操作次数  这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以">
+<meta name="twitter:image" content="http://oyka0arcw.bkt.clouddn.com/redis.png">
     
 
     
@@ -135,18 +135,18 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据库/MySQL/">MySQL</a>
+    <a class="page-title-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据库/Redis/">Redis</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-MySQL存储过程及函数核心知识点" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Redis实战：存储24小时内的操作历史" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        MySQL存储过程及函数核心知识点
+        Redis实战：存储24小时内的操作历史
         </h1>
     
 
@@ -156,106 +156,100 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2017/10/31/MySQL存储过程及函数核心知识点/" class="article-date">
-            <time datetime="2017-10-31T13:34:33.000Z" itemprop="datePublished">2017-10-31</time>
+        <a href="/2017/11/03/Redis实战：存储24小时内的操作历史/" class="article-date">
+            <time datetime="2017-11-03T03:58:23.000Z" itemprop="datePublished">2017-11-03</time>
         </a>
     </div>
 
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/MySQL/">MySQL</a>, <a class="tag-link" href="/tags/数据库/">数据库</a>
+        <a class="tag-link" href="/tags/Redis/">Redis</a>, <a class="tag-link" href="/tags/数据库/">数据库</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p>本文记录了MySQL存储过程的一些核心知识点，详细内容请参考<a href="https://dev.mysql.com/doc/refman/5.7/en/create-procedure.html" target="_blank" rel="external">官方文档</a>。文中的MySQL版本为5.7。</p>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">CREATE</div><div class="line">    [DEFINER = &#123; user | CURRENT_USER &#125;]</div><div class="line">    PROCEDURE sp_name ([proc_parameter[,...]])</div><div class="line">    [characteristic ...] routine_body</div><div class="line"></div><div class="line">CREATE</div><div class="line">    [DEFINER = &#123; user | CURRENT_USER &#125;]</div><div class="line">    FUNCTION sp_name ([func_parameter[,...]])</div><div class="line">    RETURNS type</div><div class="line">    [characteristic ...] routine_body</div><div class="line"></div><div class="line">proc_parameter:</div><div class="line">    [ IN | OUT | INOUT ] param_name type</div><div class="line"></div><div class="line">func_parameter:</div><div class="line">    param_name type</div><div class="line"></div><div class="line">type:</div><div class="line">    Any valid MySQL data type</div><div class="line"></div><div class="line">characteristic:</div><div class="line">    COMMENT &apos;string&apos;</div><div class="line">  | LANGUAGE SQL</div><div class="line">  | [NOT] DETERMINISTIC</div><div class="line">  | &#123; CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA &#125;</div><div class="line">  | SQL SECURITY &#123; DEFINER | INVOKER &#125;</div><div class="line"></div><div class="line">routine_body:</div><div class="line">    Valid SQL routine statement</div></pre></td></tr></table></figure>
+            <h2 id="分析与实现"><a href="#分析与实现" class="headerlink" title="分析与实现"></a>分析与实现</h2><p>一个消息应用有如下需求：</p>
 <ol>
-<li>存储过程可以加 <em>db_name</em>限定数据库，不加就使用默认数据库</li>
-<li>默认情况下，MYSQL给</li>
+<li>需要保留用户最近24小时内的所有操作历史</li>
+<li>需要频繁的显示最近的10条操作历史给用户</li>
+<li>需要频繁的显示24小时内总操作次数</li>
 </ol>
-<h3 id="proc-parameter"><a href="#proc-parameter" class="headerlink" title="proc_parameter"></a>proc_parameter</h3><p>默认IN，可以选择OUT，INOUT</p>
-<h3 id="proc-parameter-1"><a href="#proc-parameter-1" class="headerlink" title="proc_parameter"></a>proc_parameter</h3><p>只支持IN</p>
-<h3 id="characteristic"><a href="#characteristic" class="headerlink" title="characteristic"></a>characteristic</h3><ul>
-<li>COMMENT用于写备注</li>
-<li>LANGUAGE这个server被忽略，只是为了符合SQL标准</li>
-<li>DETERMINISTIC和NOT DETERMINISTIC。这个只是创建者自己定义的，MYSQL不会做任何检查。但是如果把<code>NOT DETEMINISTIC</code>定义为<code>DETERMINISTIC</code>，可能导致优化器做出错误的执行计划。相反，把<code>DETEMINISTIC</code>定义为<code>NOT DETERMINISTIC</code>可能让一些可用的优化措施无法使用。如果使用binary logging，需要参考<a href="https://dev.mysql.com/doc/refman/5.7/en/stored-programs-logging.html" target="_blank" rel="external">Binary Logging of Stored Programs</a>.</li>
-<li><code>{ CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA }</code>这组被server忽略</li>
-<li>SQL SECURITY定义谁可以调用。DEFINER表示由DEFINER属性所指定的用户的权限来执行，INVOKER表示以调用这个存储过程的用户的权限来执行。默认DEFINER，且值为CURRENT_USER。如果用户没有过程中需要的权限，那么INVOKER类型过程的就无法调用。</li>
-</ul>
-<h3 id="routine-body"><a href="#routine-body" class="headerlink" title="routine_body"></a>routine_body</h3><p>可以执行<a href="https://dev.mysql.com/doc/refman/5.7/en/sql-syntax-compound-statements.html" target="_blank" rel="external">Compound-Statement</a>.以及DDL语句，同时存储过程支持事务。</p>
-<h2 id="Compiund-Statement"><a href="#Compiund-Statement" class="headerlink" title="Compiund Statement"></a>Compiund Statement</h2><h3 id="BEGIN-END语法"><a href="#BEGIN-END语法" class="headerlink" title="BEGIN END语法"></a>BEGIN END语法</h3><p>语句块，可嵌套，可结合Lable使用。</p>
-<h4 id="Label语法"><a href="#Label语法" class="headerlink" title="Label语法"></a>Label语法</h4><p>可用于标记BEGIN，LOOP，REPEAT以及WHILE语句。可以用ITERATE和LEAVE指令控制流程。</p>
-<h4 id="DECLARE语法"><a href="#DECLARE语法" class="headerlink" title="DECLARE语法"></a>DECLARE语法</h4><p>声明变量，条件处理或者游标。限制如下：</p>
-<ol>
-<li>只能在BEGIN语句中，且必须在最前面</li>
-<li>必须按照变量，游标，条件处理的顺序声明。</li>
-</ol>
-<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>所用DECLARE声明，赋值可以使用SET语法，<a href="https://dev.mysql.com/doc/refman/5.7/en/select-into.html" target="_blank" rel="external"><code>SELECT ... INTO var_list</code></a> 或者 <a href="https://dev.mysql.com/doc/refman/5.7/en/fetch.html" target="_blank" rel="external"><code>FETCH ... INTO var_list</code></a></p>
-<p>定义格式：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">DECLARE var_name [, var_name] ... type [DEFAULT value]</div></pre></td></tr></table></figure>
-<h4 id="控制流程"><a href="#控制流程" class="headerlink" title="控制流程"></a>控制流程</h4><p>和C语言的类比</p>
+<p>这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以不用存储过期时间，而是在创建的时候设置好过期时间即可。</p>
+<p>我们给操作历史列表取名为<code>history</code>,之后每当有新的操作发生的时候我们需要在列表中新增一项，同时创建一个新的哈希表：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">RPUSH history operation:<span class="number">1</span></div><div class="line">HMSET operation:<span class="number">1</span> time <span class="number">12</span>:<span class="number">23</span> desc o1 </div><div class="line">EXPIRE operation:<span class="number">1</span> <span class="number">30</span></div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">RPUSH history operation:n</div><div class="line">HMSET operation:n time <span class="number">23</span>:<span class="number">23</span> desc on </div><div class="line">EXPIRE operation:n <span class="number">30</span></div></pre></td></tr></table></figure>
+<p>这样，当需要统计总操作数或者需要显示最近的10条记录的时候，我们需要先遍历history列表，然后删除掉其中已经过期的哈希表的键，最后再返回总条数或者最近10条记录。</p>
+<p>为了减少网络传输时间，我们将删除过期键的功能使用Lua脚本实现并加载到Redis(&gt;2.6.0)中，下面是Python实现（可以在Gist上查看<a href="https://gist.github.com/jefffffrey/a5e0f7fb70ce7bb4f34f1ea27eeb6df4" target="_blank" rel="external">完整代码</a>）：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DictStack</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key_name, redis_option)</span>:</span></div><div class="line">        self._db = redis.StrictRedis(**redis_option)</div><div class="line">        self._key_name = key_name</div><div class="line">        self._script = self._register_script()</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_register_script</span><span class="params">(self)</span>:</span></div><div class="line">        lua_script = <span class="string">"""</span></div><div class="line"><span class="string">while (true)</span></div><div class="line"><span class="string">do</span></div><div class="line"><span class="string">    if (redis.call('EXISTS', redis.call('LRANGE', KEYS[1], 0, 0)[1]) == 1) then</span></div><div class="line"><span class="string">        break</span></div><div class="line"><span class="string">    else</span></div><div class="line"><span class="string">        if redis.call('LLEN', KEYS[1]) == 0 then</span></div><div class="line"><span class="string">            break</span></div><div class="line"><span class="string">        end</span></div><div class="line"><span class="string">        redis.call('LPOP', KEYS[1])</span></div><div class="line"><span class="string">    end</span></div><div class="line"><span class="string">end</span></div><div class="line"><span class="string">local ret = &#123; 'ok' &#125;</span></div><div class="line"><span class="string">ret['ok'] = 'OK'</span></div><div class="line"><span class="string">return ret</span></div><div class="line"><span class="string">        """</span></div><div class="line">        <span class="keyword">return</span> self._db.register_script(lua_script)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_clear_expired_records</span><span class="params">(self)</span>:</span></div><div class="line">        self._script(keys=[self._key_name])</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(self, limit=None, offset=<span class="number">0</span>)</span>:</span></div><div class="line">        self._clear_expired_records()</div><div class="line"></div><div class="line">        result = []</div><div class="line">        <span class="keyword">if</span> limit == <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> result</div><div class="line"></div><div class="line">        end = <span class="number">-1</span> - offset</div><div class="line">        <span class="keyword">if</span> limit <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">            start = <span class="number">0</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            start = end - limit + <span class="number">1</span></div><div class="line">        elements = self._db.lrange(self._key_name, start, end)</div><div class="line"></div><div class="line">        start_idx = self.count() - offset</div><div class="line">        <span class="keyword">for</span> i, element <span class="keyword">in</span> enumerate(reversed(elements)):</div><div class="line">            record = self._db.hgetall(element)</div><div class="line">            record[<span class="string">'id'</span>] = start_idx - i</div><div class="line">            result.append(record)</div><div class="line"></div><div class="line">        <span class="keyword">return</span> result</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count</span><span class="params">(self)</span>:</span></div><div class="line">        self._clear_expired_records()</div><div class="line">        <span class="keyword">return</span> self._db.llen(self._key_name)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, record, expire=None)</span>:</span></div><div class="line">        num = self._db.llen(self._key_name)</div><div class="line">        hash_key = <span class="string">'&#123;&#125;:&#123;&#125;'</span>.format(self._key_name, num)</div><div class="line"></div><div class="line">        <span class="keyword">with</span> self._db.pipeline() <span class="keyword">as</span> pipe:</div><div class="line">            <span class="keyword">while</span> <span class="number">1</span>:</div><div class="line">                <span class="keyword">try</span>:</div><div class="line">                    pipe.watch(self._key_name)</div><div class="line">                    pipe.multi()</div><div class="line"></div><div class="line">                    self._db.rpush(self._key_name, hash_key)</div><div class="line">                    self._db.hmset(hash_key, record)</div><div class="line"></div><div class="line">                    <span class="keyword">if</span> expire:</div><div class="line">                        <span class="keyword">if</span> isinstance(expire, int):</div><div class="line">                            self._db.expire(hash_key, expire)</div><div class="line">                        <span class="keyword">elif</span> isinstance(expire, datetime.datetime):</div><div class="line">                            self._db.expireat(hash_key, expire)</div><div class="line">                        <span class="keyword">else</span>:</div><div class="line">                            <span class="keyword">raise</span> ValueError</div><div class="line">                    pipe.execute()</div><div class="line">                    <span class="keyword">break</span></div><div class="line">                <span class="keyword">except</span> redis.WatchError:</div><div class="line">                    <span class="keyword">continue</span></div></pre></td></tr></table></figure>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>首先列出我们使用的各个操作的时间复杂度：</p>
 <table>
 <thead>
 <tr>
-<th>MYSQL</th>
-<th style="text-align:left">C</th>
-<th>备注</th>
+<th>操作</th>
+<th>时间复杂度</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>CASE</td>
-<td style="text-align:left">switch</td>
-<td></td>
+<td>LPUSH</td>
+<td>O(1)</td>
 </tr>
 <tr>
-<td>IF</td>
-<td style="text-align:left">if</td>
-<td></td>
+<td>HMSET</td>
+<td>O(N)， <code>N</code> 为 <code>field-value</code> 对的数量。</td>
 </tr>
 <tr>
-<td>LOOP</td>
-<td style="text-align:left">while(1){}</td>
-<td>用ITERATE模拟continue，LEAVE模拟break</td>
+<td>EXPIRE</td>
+<td>O(1)</td>
 </tr>
 <tr>
-<td>REPATE</td>
-<td style="text-align:left">do…while</td>
-<td>用ITERATE模拟continue，LEAVE模拟break</td>
+<td>EXISTS</td>
+<td>O(1)</td>
 </tr>
 <tr>
-<td>WHILE</td>
-<td style="text-align:left">while</td>
-<td>用ITERATE模拟continue，LEAVE模拟break</td>
+<td>LRANGE</td>
+<td>O(S+N)， <code>S</code> 为偏移量 <code>start</code> ， <code>N</code> 为指定区间内元素的数量。</td>
+</tr>
+<tr>
+<td>LLEN</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>LPOP</td>
+<td>O(1)</td>
 </tr>
 </tbody>
 </table>
-<h4 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h4><p>游标使用的流程遵循：定义，OPEN，FETCH，CLOSE。语法如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">DECLARE cursor_name CURSOR FOR select_statement</div><div class="line">OPEN cursor_name</div><div class="line">FETCH [[NEXT] FROM] cursor_name INTO var_name [, var_name] ...</div><div class="line">CLOSE cursor_name</div></pre></td></tr></table></figure>
-<h4 id="条件处理"><a href="#条件处理" class="headerlink" title="条件处理"></a>条件处理</h4><p>程序执行过程中可能出现一些需要特殊处理的情况，比如继续执行还是推出程序？可以为一个条件定义处理器，条件也可以被命名。</p>
-<ol>
-<li>命名条件使用<a href="https://dev.mysql.com/doc/refman/5.7/en/declare-condition.html" target="_blank" rel="external">DECLARE … CONDITION 语法</a>，此步骤可选。</li>
-<li>定义处理器使用<a href="https://dev.mysql.com/doc/refman/5.7/en/declare-handler.html" target="_blank" rel="external">DECLARE … HANDLER 语法</a></li>
-<li>自己抛出一个条件使用<a href="https://dev.mysql.com/doc/refman/5.7/en/signal.html" target="_blank" rel="external">SIGNAL 语法</a>，定义条件处理器中继续抛出使用<a href="https://dev.mysql.com/doc/refman/5.7/en/resignal.html" target="_blank" rel="external">RESIGNAL 语法</a></li>
-<li>获取错误内容使用 <a href="https://dev.mysql.com/doc/refman/5.7/en/get-diagnostics.html" target="_blank" rel="external">GET DIAGNOSTICS 语法</a> </li>
-</ol>
-<p>例子：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">-- 命名</div><div class="line">DECLARE division_by_zero CONDITION FOR SQLSTATE &apos;22012&apos;;</div><div class="line"></div><div class="line">-- 定义处理器以及使用RESINGAL</div><div class="line"> DECLARE CONTINUE HANDLER FOR division_by_zero </div><div class="line"> RESIGNAL SET MESSAGE_TEXT = &apos;Division by zero / Denominator cannot be zero&apos;;</div><div class="line"> </div><div class="line">-- GET DIAGNOSTICS语法</div><div class="line">DROP TABLE test.no_such_table;</div><div class="line">-- ERROR 1051 (42S02): Unknown table &apos;test.no_such_table&apos;</div><div class="line">GET DIAGNOSTICS CONDITION 1 @p1 = RETURNED_SQLSTATE, @p2 = MESSAGE_TEXT;</div><div class="line">SELECT @p1, @p2;</div><div class="line">+-------+------------------------------------+</div><div class="line">| @p1   | @p2                                |</div><div class="line">+-------+------------------------------------+</div><div class="line">| 42S02 | Unknown table &apos;test.no_such_table&apos; |</div><div class="line">+-------+------------------------------------+</div></pre></td></tr></table></figure>
-<p>常用的处理器：</p>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>有许多常见问题是因为MySQL本身的一些限制，可以参考：<a href="https://dev.mysql.com/doc/refman/5.7/en/stored-program-restrictions.html" target="_blank" rel="external">Restrictions on Stored Programs</a>。下面记录一些常见的或者我碰到的问题，欢迎补充。</p>
-<h3 id="FETCH拿不到任何记录"><a href="#FETCH拿不到任何记录" class="headerlink" title="FETCH拿不到任何记录"></a>FETCH拿不到任何记录</h3><p>如果定义的变量名和SELECT的字段名一样，那么可能出现问题，这是MySQL的一个bug，解决方案是不要使变量名和字段名一样。</p>
-<h3 id="ERROR：Cursor-declaration-after-handler-declaration"><a href="#ERROR：Cursor-declaration-after-handler-declaration" class="headerlink" title="ERROR：Cursor declaration after handler declaration"></a>ERROR：Cursor declaration after handler declaration</h3><p>DECLARATION定义顺序错误，类似的还有<code>Variable or condition declaration after cursor or handler declaration</code>错误</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/create-procedure.html" target="_blank" rel="external">https://dev.mysql.com/doc/refman/5.7/en/create-procedure.html</a></p>
-<p><a href="http://chuiliu.github.io/2016/02/28/mysql%E7%9A%84definer%E5%92%8Cinvoker/" target="_blank" rel="external">http://chuiliu.github.io/2016/02/28/mysql%E7%9A%84definer%E5%92%8Cinvoker/</a></p>
-<p><a href="https://my.oschina.net/u/1424662/blog/485118" target="_blank" rel="external">https://my.oschina.net/u/1424662/blog/485118</a></p>
-<p><a href="https://dev.mysql.com/doc/refman/5.7/en/sql-syntax-compound-statements.html" target="_blank" rel="external">https://dev.mysql.com/doc/refman/5.7/en/sql-syntax-compound-statements.html</a></p>
-<p><a href="http://www.yiibai.com/mysql/signal-resignal.html" target="_blank" rel="external">http://www.yiibai.com/mysql/signal-resignal.html</a></p>
-<p><a href="http://www.cnblogs.com/langtianya/p/5534222.html" target="_blank" rel="external">http://www.cnblogs.com/langtianya/p/5534222.html</a></p>
-<p><a href="https://stackoverflow.com/questions/40661398/mysql-cursor-fetch-null" target="_blank" rel="external">https://stackoverflow.com/questions/40661398/mysql-cursor-fetch-null</a></p>
+<p>具体到我们实现的功能上来说，各个功能的时间复杂度如下：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新增一条操作记录</td>
+<td>O(N)，N为hash中key的数量</td>
+</tr>
+<tr>
+<td>删除过期的记录</td>
+<td>O(N)，N为本次过期条数</td>
+</tr>
+<tr>
+<td>取最新的10条记录</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://xiewenwei.github.io/blog/2014/08/31/avoid-misusing-redis/" target="_blank" rel="external">避免误用 Redis</a></p>
+<p><a href="http://redisdoc.com/" target="_blank" rel="external">Redis 命令参考</a></p>
+<p><a href="http://www.jianshu.com/p/c16b57c62d04" target="_blank" rel="external">Redis Lua 脚本使用</a></p>
+<p><a href="https://www.redisgreen.net/blog/intro-to-lua-for-redis-programmers/" target="_blank" rel="external">Lua: A Guide for Redis Users</a></p>
+<p><a href="https://quickleft.com/blog/how-to-create-and-expire-list-items-in-redis/" target="_blank" rel="external">How to Create and Expire List Items in Redis</a></p>
 
         </div>
         <footer class="article-footer">
@@ -263,7 +257,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2017/10/31/MySQL存储过程及函数核心知识点/" data-id="cj9jdkee20002dl3ilue07hm4" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2017/11/03/Redis实战：存储24小时内的操作历史/" data-id="cj9jdkeed0005dl3ii9gdsq2h" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -368,20 +362,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2017/11/01/深入理解BFC和Margin-Collapse/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">下一篇</strong>
-        <p class="article-nav-title">
-        
-            深入理解BFC和Margin Collapse
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2017/10/21/一个查询API引发的对前后端职责的思考/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/11/01/深入理解BFC和Margin-Collapse/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">上一篇</strong>
-        <p class="article-nav-title">一个查询API引发的对前后端职责的思考</p>
+        <p class="article-nav-title">深入理解BFC和Margin Collapse</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -548,7 +532,7 @@
     var disqus_shortname = 'jefffffrey';
     
     
-    var disqus_url = 'http://yoursite.com/2017/10/31/MySQL存储过程及函数核心知识点/';
+    var disqus_url = 'http://yoursite.com/2017/11/03/Redis实战：存储24小时内的操作历史/';
     
     (function() {
     var dsq = document.createElement('script');

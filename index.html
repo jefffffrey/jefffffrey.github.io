@@ -67,7 +67,7 @@
                                     <a class="main-nav-list-link" href="/">主页</a>
                                 </li>
                             
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/前端/">前端</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/前端/CSS/">CSS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据库/">数据库</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/前端/">前端</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/前端/CSS/">CSS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据库/">数据库</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据库/MySQL/">MySQL</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据库/Redis/">Redis</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
                                     
                                 <li class="main-nav-list-item" >
                                     <a class="main-nav-list-link" href="/about/index.html">关于</a>
@@ -149,6 +149,58 @@
         <article class="article article-summary">
     <div class="article-summary-inner">
         
+        <a href="/2017/11/03/Redis实战：存储24小时内的操作历史/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/redis.png)" alt="Redis实战：存储24小时内的操作历史" class="thumbnail-image"></span>
+    
+    
+        
+<span class="comment-counter">
+    <i class="fa fa-comments-o"></i>
+    
+        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/03/Redis实战：存储24小时内的操作历史/">0</span>
+    
+</span>
+
+
+    
+</a>
+
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/Redis/">Redis</a>
+            </div>
+            <div class="date"><time datetime="2017-11-03T03:58:23.000Z" itemprop="datePublished">2017-11-03</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2017/11/03/Redis实战：存储24小时内的操作历史/">Redis实战：存储24小时内的操作历史</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            分析与实现一个消息应用有如下需求：
+
+需要保留用户最近24小时内的所有操作历史
+需要频繁的显示最近的10条操作历史给用户
+需要频繁的显示24小时内总操作次数
+
+这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
         <a href="/2017/11/01/深入理解BFC和Margin-Collapse/" class="thumbnail">
     
     
@@ -188,10 +240,14 @@
     </div>
 </article>
     
+        </div>
+    
 
     
     
     
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -217,7 +273,7 @@
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a>
+            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/MySQL/">MySQL</a>
             </div>
             <div class="date"><time datetime="2017-10-31T13:34:33.000Z" itemprop="datePublished">2017-10-31</time></div>
         </div>
@@ -235,14 +291,10 @@
     </div>
 </article>
     
-        </div>
-    
 
     
     
     
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -336,6 +388,26 @@
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2017/11/03/Redis实战：存储24小时内的操作历史/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/redis.png)" alt="Redis实战：存储24小时内的操作历史" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/Redis/">Redis</a></p>
+                            <p class="item-title"><a href="/2017/11/03/Redis实战：存储24小时内的操作历史/" class="title">Redis实战：存储24小时内的操作历史</a></p>
+                            <p class="item-date"><time datetime="2017-11-03T03:58:23.000Z" itemprop="datePublished">2017-11-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2017/11/01/深入理解BFC和Margin-Collapse/" class="thumbnail">
     
     
@@ -367,7 +439,7 @@
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/数据库/">数据库</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/MySQL/">MySQL</a></p>
                             <p class="item-title"><a href="/2017/10/31/MySQL存储过程及函数核心知识点/" class="title">MySQL存储过程及函数核心知识点</a></p>
                             <p class="item-date"><time datetime="2017-10-31T13:34:33.000Z" itemprop="datePublished">2017-10-31</time></p>
                         </div>
@@ -402,7 +474,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/CSS/">CSS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件工程/">软件工程</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/CSS/">CSS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/Redis/">Redis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件工程/">软件工程</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -412,7 +484,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -422,7 +494,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS布局/">CSS布局</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS盒模型/">CSS盒模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前后端分离/">前后端分离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件工程/">软件工程</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS布局/">CSS布局</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS盒模型/">CSS盒模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前后端分离/">前后端分离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件工程/">软件工程</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -432,7 +504,7 @@
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CSS布局/" style="font-size: 10px;">CSS布局</a> <a href="/tags/CSS盒模型/" style="font-size: 10px;">CSS盒模型</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/前后端分离/" style="font-size: 10px;">前后端分离</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/软件工程/" style="font-size: 10px;">软件工程</a>
+            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CSS布局/" style="font-size: 10px;">CSS布局</a> <a href="/tags/CSS盒模型/" style="font-size: 10px;">CSS盒模型</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/前后端分离/" style="font-size: 10px;">前后端分离</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/数据库/" style="font-size: 20px;">数据库</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/软件工程/" style="font-size: 10px;">软件工程</a>
         </div>
     </div>
 
