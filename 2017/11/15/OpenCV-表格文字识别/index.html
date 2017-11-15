@@ -3,17 +3,26 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     
-    <title>标签：: 自然语言处理 | Jeffrey&#39;s Blog</title>
+    <title>OpenCV 表格文字识别 | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Jeffrey&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/自然语言处理/index.html">
+        <meta name="keywords" content="CS,图像处理,OpenCV" />
+    
+    <meta name="description" content="最近项目需要识别图片中的表格文字，遂学习了一波OpenCV。现在将整个流程记录下来以供交流和分享。 本次的目标是识别下图中的表格，最终需要知道每一部分填写的内容内容是什么，比如知道用户电话是13988881234。我将此次任务划分为3个步骤：  识别出每一个单元格，得到其矩形区域的位置 知道每一个矩形区域的意义。比如知道e矩形区域代表用户的电话号码 对该区域的图片进行文字识别   本文将要讲解的就">
+<meta name="keywords" content="CS,图像处理,OpenCV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV 表格文字识别">
+<meta property="og:url" content="http://yoursite.com/2017/11/15/OpenCV-表格文字识别/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="最近项目需要识别图片中的表格文字，遂学习了一波OpenCV。现在将整个流程记录下来以供交流和分享。 本次的目标是识别下图中的表格，最终需要知道每一部分填写的内容内容是什么，比如知道用户电话是13988881234。我将此次任务划分为3个步骤：  识别出每一个单元格，得到其矩形区域的位置 知道每一个矩形区域的意义。比如知道e矩形区域代表用户的电话号码 对该区域的图片进行文字识别   本文将要讲解的就">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oyka0arcw.bkt.clouddn.com/redis.png">
+<meta property="og:updated_time" content="2017-11-15T10:42:34.760Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jeffrey&#39;s Blog">
+<meta name="twitter:title" content="OpenCV 表格文字识别">
+<meta name="twitter:description" content="最近项目需要识别图片中的表格文字，遂学习了一波OpenCV。现在将整个流程记录下来以供交流和分享。 本次的目标是识别下图中的表格，最终需要知道每一部分填写的内容内容是什么，比如知道用户电话是13988881234。我将此次任务划分为3个步骤：  识别出每一个单元格，得到其矩形区域的位置 知道每一个矩形区域的意义。比如知道e矩形区域代表用户的电话号码 对该区域的图片进行文字识别   本文将要讲解的就">
+<meta name="twitter:image" content="http://oyka0arcw.bkt.clouddn.com/redis.png">
     
 
     
@@ -126,76 +135,142 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>标签：: <em>自然语言处理</em>
+    <a class="page-title-link" href="/categories/CS/">CS</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/CS/图像处理/">图像处理</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-OpenCV-表格文字识别" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2017" class="archive-year"><i class="icon fa fa-calendar-o"></i>2017</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/11/08/统计机器翻译（SMT）简介/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://www.statmt.org/wpt05/mt-shared-task/phrase-mt.gif)" alt="统计机器翻译（SMT）简介" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/08/统计机器翻译（SMT）简介/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/CS/">CS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/CS/自然语言处理/">自然语言处理</a>
-            </div>
-            <div class="date"><time datetime="2017-11-08T06:56:34.000Z" itemprop="datePublished">2017-11-08</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2017/11/08/统计机器翻译（SMT）简介/">统计机器翻译（SMT）简介</a>
+        OpenCV 表格文字识别
         </h1>
     
 
-        <p class="article-excerpt">
-            统计机器翻译（英语：Statistical Machine Translation，简写为SMT）是机器翻译的一种，基本思想是通过对大量的平行语料进行统计分析，构建模型，进而使用此模型进行翻译。
-所谓的平行语料就是表达同一个意思的不同语言的句子，如：
-這是一個蘋果。This is an apple.桌上有一本書。There is a book on the table．
-模型的定义假设一个源语言句
-        </p>
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/11/15/OpenCV-表格文字识别/" class="article-date">
+            <time datetime="2017-11-15T10:38:36.000Z" itemprop="datePublished">2017-11-15</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/CS/">CS</a>, <a class="tag-link" href="/tags/OpenCV/">OpenCV</a>, <a class="tag-link" href="/tags/图像处理/">图像处理</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>最近项目需要识别图片中的表格文字，遂学习了一波OpenCV。现在将整个流程记录下来以供交流和分享。</p>
+<p>本次的目标是识别下图中的表格，最终需要知道每一部分填写的内容内容是什么，比如知道<code>用户电话</code>是<code>13988881234</code>。我将此次任务划分为3个步骤：</p>
+<ol>
+<li>识别出每一个单元格，得到其矩形区域的位置</li>
+<li>知道每一个矩形区域的意义。比如知道<em>e</em>矩形区域代表用户的电话号码</li>
+<li>对该区域的图片进行文字识别</li>
+</ol>
+<p><img src="http://oyka0arcw.bkt.clouddn.com/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E5%8A%A0%E4%BA%86%E8%BE%B9%E6%A1%862.jpg" alt="图"></p>
+<p>本文将要讲解的就是如何完成第一步：得到所有矩形区域的位置。其余步骤可能会在之后的文章进行讲解。我采用的语言是Python，即使你不懂Python也应该能看懂流程，因为Python非常易读。我采用的OpenCV为当前的最新版3.3.1。</p>
+<p>如果你是Linux用户且需要安装OpenCV及其相关的Python库，请看我的另一篇文章：<a href="https://toaco.github.io/2017/11/09/Linux-OpenCV%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/" target="_blank" rel="external">Linux OpenCV安装指南</a></p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>我们知道OpenCV提供了轮廓识别的API：<code>findContours</code>，根据该API的描述，在轮廓检测之前，首先要对图片进行二值化或者Canny边缘检测。寻找的物体是白色的，而背景必须是黑色的。</p>
+<p>经过测试后使用二值化的方式对图片进行处理比较好，要注意的是调用threshold时的阈值方法要使用<code>THRESH_BINARY_INV</code>（因为我们需要变成白色，背景变成黑色）。</p>
+<p>其次经过二值化处理之后我发现有些边框会出现一些小的空隙，可能是打印问题或者其他因素造成的。对于这种细小的空隙我采用对二值化后的图片进行一次膨胀操作进行去除。</p>
+<p>最后一步就是检测轮廓，使用<code>findContours</code>方法，并且轮廓检索模式（Contour retrieval mode）使用<code>RETR_TREE</code>，使用模式我们不仅可以得到所有的轮廓，同时还可以得到轮廓之间的关系（父子关系，兄弟关系）检测出所有轮廓之后，我们需要找出其中最大的轮廓，它代表表格的外边框，然后其所有的子轮廓就是我们要找的内容。</p>
+<p>这一步遇到的问题是OpenCV会识别出多余的轮廓，或者识别出的轮廓形状不像长方形。为了防止识别出的多余的轮廓，我们采用面积过滤，估算一下表格中最小的单元格区域的面积，然后所有小于该面积的都过滤掉。对于轮廓不像长方形，我们采用<code>boundingRect</code>得到包含该区域的最小矩形。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line"><span class="keyword">import</span> cv2</div><div class="line"></div><div class="line">img = cv2.imread(<span class="string">'1.jpg'</span>)</div><div class="line"></div><div class="line"><span class="comment"># 灰度图</span></div><div class="line">gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</div><div class="line"></div><div class="line"><span class="comment"># 阈值</span></div><div class="line">_, threshold = cv2.threshold(gray, <span class="number">100</span>, <span class="number">255</span>, cv2.THRESH_BINARY_INV)</div><div class="line"></div><div class="line"><span class="comment"># 膨胀</span></div><div class="line">kernel = np.ones((<span class="number">3</span>, <span class="number">3</span>), np.uint8)</div><div class="line">dilated = cv2.dilate(threshold, kernel, iterations=<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="comment"># 轮廓检测</span></div><div class="line">_, contours, hierarchy = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</div><div class="line"></div><div class="line"><span class="comment"># 找到表格最外层轮廓</span></div><div class="line">tree = hierarchy[<span class="number">0</span>]</div><div class="line">max_size = <span class="number">0</span></div><div class="line">outer_contour_index = <span class="keyword">None</span></div><div class="line"><span class="keyword">for</span> i, contour <span class="keyword">in</span> enumerate(contours):</div><div class="line">    size = cv2.contourArea(contour)</div><div class="line">    <span class="keyword">if</span> size &gt; max_size:</div><div class="line">        max_size = size</div><div class="line">        outer_contour_index = i</div><div class="line">contour = contours[outer_contour_index]</div><div class="line"></div><div class="line"><span class="comment"># 估算最小的单元格大小</span></div><div class="line">x, y, w, h = cv2.boundingRect(contour)</div><div class="line">cell_size = w * h * <span class="number">0.0015</span></div><div class="line"></div><div class="line"><span class="comment"># 遍历所有最外层轮廓的子轮廓，过滤掉面积小于cell_size的，然后全部用矩形标注起来</span></div><div class="line">contour_index = tree[outer_contour_index][<span class="number">2</span>]</div><div class="line">count = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> <span class="number">1</span>:</div><div class="line">    contour = contours[contour_index]</div><div class="line"></div><div class="line">    <span class="keyword">if</span> cv2.contourArea(contour) &gt; cell_size:</div><div class="line">        x, y, w, h = cv2.boundingRect(contour)</div><div class="line">        count += <span class="number">1</span></div><div class="line">        cv2.rectangle(img, (x, y), (x + w, y + h), (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">3</span>)</div><div class="line">    contour_index = tree[contour_index][<span class="number">0</span>]</div><div class="line"></div><div class="line">    <span class="keyword">if</span> contour_index &lt; <span class="number">0</span>:</div><div class="line">        cv2.imwrite(<span class="string">'11.jpg'</span>, img)</div><div class="line">        <span class="keyword">break</span></div></pre></td></tr></table></figure>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="http://oyka0arcw.bkt.clouddn.com/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E5%8A%A0%E4%BA%86%E8%BE%B9%E6%A1%86%E7%9A%842.jpg" alt="图"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://docs.opencv.org/3.3.1/d7/da8/tutorial_table_of_content_imgproc.html" target="_blank" rel="external">Image Processing (imgproc module) </a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2017/11/15/OpenCV-表格文字识别/" data-id="cja0x484m0006nz3isw3nul8u" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
+
+    <section id="comments">
     
-        </div>
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
     
-
-
-    </div></section>
-
+    </section>
 
 
                         </div>
@@ -224,6 +299,19 @@
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/11/09/Linux-OpenCV安装指南/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">Linux OpenCV安装指南</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -385,11 +473,13 @@
     var disqus_shortname = 'jefffffrey';
     
     
+    var disqus_url = 'http://yoursite.com/2017/11/15/OpenCV-表格文字识别/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>

@@ -7,21 +7,21 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="图像处理,OpenCV" />
+        <meta name="keywords" content="CS,图像处理,OpenCV" />
     
-    <meta name="description" content="本教程是官方在Ubuntu10.04下测试后给出的指南，理论情况下也适用于其他发行版。笔者的系统为Linux Mint 16.1（基于Ubuntu 16.04），经测试成功安装。 安装依赖[compiler] sudo apt-get install build-essential[required] sudo apt-get install cmake git libgtk2.0-dev pkg">
-<meta name="keywords" content="图像处理,OpenCV">
+    <meta name="description" content="本教程是笔者在Linux Mint 16.1（基于Ubuntu 16.04）下测试后给出的指南，理论情况下也适用于其他发行版。 安装依赖[compiler] sudo apt-get install build-essential[required] sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev lib">
+<meta name="keywords" content="CS,图像处理,OpenCV">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux OpenCV安装指南">
 <meta property="og:url" content="http://yoursite.com/2017/11/09/Linux-OpenCV安装指南/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
-<meta property="og:description" content="本教程是官方在Ubuntu10.04下测试后给出的指南，理论情况下也适用于其他发行版。笔者的系统为Linux Mint 16.1（基于Ubuntu 16.04），经测试成功安装。 安装依赖[compiler] sudo apt-get install build-essential[required] sudo apt-get install cmake git libgtk2.0-dev pkg">
+<meta property="og:description" content="本教程是笔者在Linux Mint 16.1（基于Ubuntu 16.04）下测试后给出的指南，理论情况下也适用于其他发行版。 安装依赖[compiler] sudo apt-get install build-essential[required] sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev lib">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img0.imgtn.bdimg.com/it/u=2524411125,2512425217&fm=214&gp=0.jpg">
-<meta property="og:updated_time" content="2017-11-09T06:16:26.849Z">
+<meta property="og:updated_time" content="2017-11-15T10:39:56.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux OpenCV安装指南">
-<meta name="twitter:description" content="本教程是官方在Ubuntu10.04下测试后给出的指南，理论情况下也适用于其他发行版。笔者的系统为Linux Mint 16.1（基于Ubuntu 16.04），经测试成功安装。 安装依赖[compiler] sudo apt-get install build-essential[required] sudo apt-get install cmake git libgtk2.0-dev pkg">
+<meta name="twitter:description" content="本教程是笔者在Linux Mint 16.1（基于Ubuntu 16.04）下测试后给出的指南，理论情况下也适用于其他发行版。 安装依赖[compiler] sudo apt-get install build-essential[required] sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev lib">
 <meta name="twitter:image" content="http://img0.imgtn.bdimg.com/it/u=2524411125,2512425217&fm=214&gp=0.jpg">
     
 
@@ -164,14 +164,14 @@
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/OpenCV/">OpenCV</a>, <a class="tag-link" href="/tags/图像处理/">图像处理</a>
+        <a class="tag-link" href="/tags/CS/">CS</a>, <a class="tag-link" href="/tags/OpenCV/">OpenCV</a>, <a class="tag-link" href="/tags/图像处理/">图像处理</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p>本教程是官方在<em>Ubuntu10.04</em>下测试后给出的指南，理论情况下也适用于其他发行版。笔者的系统为<em>Linux Mint 16.1</em>（基于<em>Ubuntu 16.04</em>），经测试成功安装。</p>
+            <p>本教程是笔者在<em>Linux Mint 16.1</em>（基于<em>Ubuntu 16.04</em>）下测试后给出的指南，理论情况下也适用于其他发行版。</p>
 <h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">[compiler] sudo apt-get install build-essential</div><div class="line">[required] sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev</div><div class="line">[optional] sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev</div></pre></td></tr></table></figure>
 <h3 id="libgtk2-0-dev依赖问题"><a href="#libgtk2-0-dev依赖问题" class="headerlink" title="libgtk2.0-dev依赖问题"></a>libgtk2.0-dev依赖问题</h3><p>安装过程中可能出现如下问题：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">下列软件包有未满足的依赖关系：  </div><div class="line"> libgtk2.0-dev : 依赖: libgdk-pixbuf2.0-dev (&gt;= 2.21.0) 但是它将不会被安装  </div><div class="line">                 依赖: libpango1.0-dev (&gt;= 1.20) 但是它将不会被安装  </div><div class="line">                 依赖: libcairo2-dev (&gt;= 1.6.4-6.1) 但是它将不会被安装</div></pre></td></tr></table></figure>
@@ -196,7 +196,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2017/11/09/Linux-OpenCV安装指南/" data-id="cj9s2ytmy0006173iywtkem4v" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2017/11/09/Linux-OpenCV安装指南/" data-id="cja0x484h0005nz3i1aj8gks9" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -301,6 +301,16 @@
         
 <nav id="article-nav">
     
+        <a href="/2017/11/15/OpenCV-表格文字识别/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            OpenCV 表格文字识别
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
     
         <a href="/2017/11/08/统计机器翻译（SMT）简介/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">上一篇</strong>
@@ -319,6 +329,26 @@
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/11/15/OpenCV-表格文字识别/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/redis.png)" alt="OpenCV 表格文字识别" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/CS/">CS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/CS/图像处理/">图像处理</a></p>
+                            <p class="item-title"><a href="/2017/11/15/OpenCV-表格文字识别/" class="title">OpenCV 表格文字识别</a></p>
+                            <p class="item-date"><time datetime="2017-11-15T10:38:36.000Z" itemprop="datePublished">2017-11-15</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -400,26 +430,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/10/31/MySQL存储过程及函数核心知识点/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B.jpeg)" alt="MySQL存储过程及函数核心知识点" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/MySQL/">MySQL</a></p>
-                            <p class="item-title"><a href="/2017/10/31/MySQL存储过程及函数核心知识点/" class="title">MySQL存储过程及函数核心知识点</a></p>
-                            <p class="item-date"><time datetime="2017-10-31T13:34:33.000Z" itemprop="datePublished">2017-10-31</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -429,7 +439,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/">CS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/图像处理/">图像处理</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/自然语言处理/">自然语言处理</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/CSS/">CSS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/Redis/">Redis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件工程/">软件工程</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/">CS</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/图像处理/">图像处理</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/自然语言处理/">自然语言处理</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/CSS/">CSS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/Redis/">Redis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件工程/">软件工程</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -439,7 +449,7 @@
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CSS布局/" style="font-size: 10px;">CSS布局</a> <a href="/tags/CSS盒模型/" style="font-size: 10px;">CSS盒模型</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/前后端分离/" style="font-size: 10px;">前后端分离</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/图像处理/" style="font-size: 10px;">图像处理</a> <a href="/tags/数据库/" style="font-size: 20px;">数据库</a> <a href="/tags/机器翻译/" style="font-size: 10px;">机器翻译</a> <a href="/tags/自然语言处理/" style="font-size: 10px;">自然语言处理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/软件工程/" style="font-size: 10px;">软件工程</a>
+            <a href="/tags/CS/" style="font-size: 20px;">CS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CSS布局/" style="font-size: 10px;">CSS布局</a> <a href="/tags/CSS盒模型/" style="font-size: 10px;">CSS盒模型</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/OpenCV/" style="font-size: 15px;">OpenCV</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/前后端分离/" style="font-size: 10px;">前后端分离</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/图像处理/" style="font-size: 15px;">图像处理</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/机器翻译/" style="font-size: 10px;">机器翻译</a> <a href="/tags/自然语言处理/" style="font-size: 10px;">自然语言处理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/软件工程/" style="font-size: 10px;">软件工程</a>
         </div>
     </div>
 
