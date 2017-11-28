@@ -3,17 +3,24 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     
-    <title>标签：: 数据库 | Jeffrey&#39;s Blog</title>
+    <title>迁移MSSQL到MySQL-使用Workbench | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Jeffrey&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/数据库/index.html">
+        <meta name="keywords" content="数据库,MySQL,数据迁移,MSSQL,MySQL Workbench" />
+    
+    <meta name="description" content="官方文档教程：使用Workbench迁移MSSQL数据到MySQL，该流程需要用到iodbc，安装一下： sudo apt-get install iodbcsudo apt-get install libiodbc2-dev 之后按着教程走，在Fetch Schemas List这一步遇到问题，Google一下发现2年前有人遇到同样的问题，解决办法是升级Workbench到最新版本，然后我已经是">
+<meta name="keywords" content="数据库,MySQL,数据迁移,MSSQL,MySQL Workbench">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迁移MSSQL到MySQL-使用Workbench">
+<meta property="og:url" content="http://yoursite.com/2017/11/28/迁移MSSQL到MySQL-使用Workbench/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="官方文档教程：使用Workbench迁移MSSQL数据到MySQL，该流程需要用到iodbc，安装一下： sudo apt-get install iodbcsudo apt-get install libiodbc2-dev 之后按着教程走，在Fetch Schemas List这一步遇到问题，Google一下发现2年前有人遇到同样的问题，解决办法是升级Workbench到最新版本，然后我已经是">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-11-28T09:28:33.537Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jeffrey&#39;s Blog">
+<meta name="twitter:title" content="迁移MSSQL到MySQL-使用Workbench">
+<meta name="twitter:description" content="官方文档教程：使用Workbench迁移MSSQL数据到MySQL，该流程需要用到iodbc，安装一下： sudo apt-get install iodbcsudo apt-get install libiodbc2-dev 之后按着教程走，在Fetch Schemas List这一步遇到问题，Google一下发现2年前有人遇到同样的问题，解决办法是升级Workbench到最新版本，然后我已经是">
     
 
     
@@ -126,178 +133,134 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>标签：: <em>数据库</em>
+    <a class="page-title-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据库/数据迁移/">数据迁移</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-迁移MSSQL到MySQL-使用Workbench" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2017" class="archive-year"><i class="icon fa fa-calendar-o"></i>2017</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/28/迁移MSSQL到MySQL-使用Workbench/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/数据迁移/">数据迁移</a>
-            </div>
-            <div class="date"><time datetime="2017-11-28T09:26:19.000Z" itemprop="datePublished">2017-11-28</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/">迁移MSSQL到MySQL-使用Workbench</a>
+        迁移MSSQL到MySQL-使用Workbench
         </h1>
     
 
-        <p class="article-excerpt">
-            官方文档教程：使用Workbench迁移MSSQL数据到MySQL，该流程需要用到iodbc，安装一下：
-sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
-之后按着教程走，在Fetch Schemas List这一步遇到问题，Google一下发现2年前有人遇到同样的问题，解决办法是升级Workbench到最新版本，然后我已经是
-        </p>
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/" class="article-date">
+            <time datetime="2017-11-28T09:26:19.000Z" itemprop="datePublished">2017-11-28</time>
+        </a>
     </div>
-</article>
-    
 
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/11/03/【Redis实战】存储24小时内的操作历史/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/redis.png)" alt="【Redis实战】存储24小时内的操作历史" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/03/【Redis实战】存储24小时内的操作历史/">0</span>
-    
-</span>
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/MSSQL/">MSSQL</a>, <a class="tag-link" href="/tags/MySQL/">MySQL</a>, <a class="tag-link" href="/tags/MySQL-Workbench/">MySQL Workbench</a>, <a class="tag-link" href="/tags/数据库/">数据库</a>, <a class="tag-link" href="/tags/数据迁移/">数据迁移</a>
+    </div>
 
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/Redis/">Redis</a>
             </div>
-            <div class="date"><time datetime="2017-11-03T03:58:23.000Z" itemprop="datePublished">2017-11-03</time></div>
-        </div>
         
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/11/03/【Redis实战】存储24小时内的操作历史/">【Redis实战】存储24小时内的操作历史</a>
-        </h1>
-    
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>官方文档教程：<a href="https://dev.mysql.com/doc/workbench/en/wb-migration.html" target="_blank" rel="external">使用Workbench迁移MSSQL数据到MySQL</a>，该流程需要用到iodbc，安装一下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">sudo apt-get install iodbc</div><div class="line">sudo apt-get install libiodbc2-dev</div></pre></td></tr></table></figure>
+<p>之后按着教程走，在<code>Fetch Schemas List</code>这一步遇到问题，Google一下发现2年前有人遇到<a href="BUG: https://forums.mysql.com/read.php?152,632429,632458#msg-632458" target="_blank" rel="external">同样的问题</a>，解决办法是升级Workbench到最新版本，然后我已经是最新版本了。</p>
+<p>怎么Google都找不到解决办法，最后看了一篇文章：<a href="https://mysqlworkbench.org/2012/07/migrating-from-ms-sql-server-to-mysql-using-workbench-migration-wizard/comment-page-1/" target="_blank" rel="external">How-To: Guide to Database Migration from Microsoft SQL Server using MySQL Workbench</a> ，此文推荐使用<code>Native Driver</code>驱动而不是<code>FreeTDS</code>驱动，于是我去下载<a href="https://www.microsoft.com/en-us/download/details.aspx?id=28160" target="_blank" rel="external">Linux ODBC Driver</a>，结果安装的第一步就失败，出现各种问题。</p>
+<p>之后放弃了这种方式，决定找一台Windows装Workbench来避免安装Driver，先是使用了一台Windows服务器，安装完之后，执行迁移的时候告诉我不支持该平台，又换了一台Windows PC，成功安装，迁移时终于没有遇到之前的BUG了。</p>
+<p>但是！！！进入下一步的时候又遇到了新的<a href="https://bugs.mysql.com/bug.php?id=84071" target="_blank" rel="external">BUG</a>，这个BUG一年前已经有人提到了，也没有什么解决方案。看了看Workbench的迁移流程总共有14步，结果在第3步和第4步连续遇到两个BUG，遂放弃Workbench迁移的方案了。</p>
+<p>看了看其他工具，发现要么收费，要么太老，而且也不知道会不会有什么烦人的BUG。最后放弃了使用这些工具的想法了，自己写个工具来迁移吧。</p>
+<ul>
+<li><a href="http://www.dbload.com/" target="_blank" rel="external">http://www.dbload.com/</a> 只支持Windows</li>
+<li><a href="https://www.webyog.com/product/sqlyogpricing" target="_blank" rel="external">https://www.webyog.com/product/sqlyogpricing</a> 只支持Windows</li>
+<li><a href="https://www.navicat.com/en/products/navicat-premium" target="_blank" rel="external">https://www.navicat.com/en/products/navicat-premium</a>  支持Windows和Mac</li>
+</ul>
 
-        <p class="article-excerpt">
-            分析与实现一个消息应用有如下需求：
+        </div>
+        <footer class="article-footer">
+            
 
-需要保留用户最近24小时内的所有操作历史
-需要频繁的显示最近的10条操作历史给用户
-需要频繁的显示24小时内总操作次数
 
-这是一个典型的适合应用Redis的情形。现在需要考虑的是如何具体实现，首先想到的是采用字典（哈希表）列表的方式实现，其中每一个哈希表存储操作内容和操作时间，同时包含一个过期时间。但是考虑到Redis支持设置键的过期时间，所以哈希表本身可以不
-        </p>
+
+    <a data-url="http://yoursite.com/2017/11/28/迁移MSSQL到MySQL-使用Workbench/" data-id="cjajf77i5000gpl3ipgf8ydj0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
-    
-        </div>
-    
 
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/10/31/MySQL存储过程及函数核心知识点/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B.jpeg)" alt="MySQL存储过程及函数核心知识点" class="thumbnail-image"></span>
-    
+    <section id="comments">
     
         
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/10/31/MySQL存储过程及函数核心知识点/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/MySQL/">MySQL</a>
-            </div>
-            <div class="date"><time datetime="2017-10-31T13:34:33.000Z" itemprop="datePublished">2017-10-31</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/10/31/MySQL存储过程及函数核心知识点/">MySQL存储过程及函数核心知识点</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            本文记录了MySQL存储过程的一些核心知识点，详细内容请参考官方文档。文中的MySQL版本为5.7。
-语法CREATE    [DEFINER = &#123; user | CURRENT_USER &#125;]    PROCEDURE sp_name ([proc_parameter[,...]])    [characteristic ...] routine_bodyCREATE   
-        </p>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
-</article>
+
     
-        </div>
-    
-
-
-    </div></section>
-
+    </section>
 
 
                         </div>
@@ -326,6 +289,19 @@ sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/11/17/IIS7体系结构简介/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">IIS7体系结构简介</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -487,11 +463,13 @@ sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
     var disqus_shortname = 'jefffffrey';
     
     
+    var disqus_url = 'http://yoursite.com/2017/11/28/迁移MSSQL到MySQL-使用Workbench/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
