@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    
+    <title>半自动化迁移MSSQL数据到MySQL | Jeffrey&#39;s Blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="数据库,MySQL,数据迁移,MSSQL,Pyetl" />
+    
+    <meta name="description" content="本次数据迁移的流程：  手动流程：导出SQLServer的DDL，然后翻译成MySQL的DDL并且在MySQL中执行 自动流程：使用Pyetl完成数据的迁移  翻译DDL到处SQLServer中的DDL可以通过编写命令获得，也可以使用SQLServer的管理工具获得，其中管理工具最方便且靠谱，下面是使用该方式的教程：  https://jingyan.baidu.com/article/3ea51">
+<meta name="keywords" content="数据库,MySQL,数据迁移,MSSQL,Pyetl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="半自动化迁移MSSQL数据到MySQL">
+<meta property="og:url" content="http://yoursite.com/2017/12/05/半自动化迁移MSSQL数据到MySQL/index.html">
+<meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="本次数据迁移的流程：  手动流程：导出SQLServer的DDL，然后翻译成MySQL的DDL并且在MySQL中执行 自动流程：使用Pyetl完成数据的迁移  翻译DDL到处SQLServer中的DDL可以通过编写命令获得，也可以使用SQLServer的管理工具获得，其中管理工具最方便且靠谱，下面是使用该方式的教程：  https://jingyan.baidu.com/article/3ea51">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=234018358,1177866074&fm=27&gp=0.jpg">
+<meta property="og:updated_time" content="2017-12-05T13:12:56.287Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="半自动化迁移MSSQL数据到MySQL">
+<meta name="twitter:description" content="本次数据迁移的流程：  手动流程：导出SQLServer的DDL，然后翻译成MySQL的DDL并且在MySQL中执行 自动流程：使用Pyetl完成数据的迁移  翻译DDL到处SQLServer中的DDL可以通过编写命令获得，也可以使用SQLServer的管理工具获得，其中管理工具最方便且靠谱，下面是使用该方式的教程：  https://jingyan.baidu.com/article/3ea51">
+<meta name="twitter:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=234018358,1177866074&fm=27&gp=0.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="https://avatars3.githubusercontent.com/u/19466181?s=460&v=4" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+    
+
+
+</head>
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Live and learn!</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CS/">CS</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CS/图像处理/">图像处理</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CS/自然语言处理/">自然语言处理</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/前端/">前端</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/前端/CSS/">CSS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据库/">数据库</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据库/MySQL/">MySQL</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据库/Redis/">Redis</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据库/数据迁移/">数据迁移</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/服务器/">服务器</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/服务器/IIS/">IIS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/编程语言/">编程语言</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/编程语言/C/">C#</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据库/数据迁移/">数据迁移</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-半自动化迁移MSSQL数据到MySQL" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        半自动化迁移MSSQL数据到MySQL
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/" class="article-date">
+            <time datetime="2017-12-05T13:00:43.000Z" itemprop="datePublished">2017-12-05</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/MSSQL/">MSSQL</a>, <a class="tag-link" href="/tags/MySQL/">MySQL</a>, <a class="tag-link" href="/tags/Pyetl/">Pyetl</a>, <a class="tag-link" href="/tags/数据库/">数据库</a>, <a class="tag-link" href="/tags/数据迁移/">数据迁移</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>本次数据迁移的流程：</p>
+<ul>
+<li>手动流程：导出SQLServer的DDL，然后翻译成MySQL的DDL并且在MySQL中执行</li>
+<li>自动流程：使用Pyetl完成数据的迁移</li>
+</ul>
+<h2 id="翻译DDL"><a href="#翻译DDL" class="headerlink" title="翻译DDL"></a>翻译DDL</h2><p>到处SQLServer中的DDL可以通过编写命令获得，也可以使用SQLServer的管理工具获得，其中管理工具最方便且靠谱，下面是使用该方式的教程：</p>
+<ul>
+<li><a href="https://jingyan.baidu.com/article/3ea51489e672be52e61bba80.html" target="_blank" rel="external">https://jingyan.baidu.com/article/3ea51489e672be52e61bba80.html</a></li>
+</ul>
+<p>如果你要使用命令导出，可以参考：<a href="https://stackoverflow.com/a/20350000/6364963。" target="_blank" rel="external">https://stackoverflow.com/a/20350000/6364963。</a></p>
+<p>接下来就是手动翻译导出的脚本了，下面是MSSQL类型与MySQL类型的一些转换关系（摘自MySQL 5.7官方文档）：</p>
+<table>
+<thead>
+<tr>
+<th>MSSQL Type</th>
+<th><a href="https://dev.mysql.com/doc/refman/5.7/en/data-types.html" target="_blank" rel="external">MySQL Type</a></th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INT</td>
+<td>INT</td>
+<td></td>
+</tr>
+<tr>
+<td>TINYINT</td>
+<td>TINYINT</td>
+<td>UNSIGNED flag set in MySQL，MySQL： -128到127(SIGNED)，0到255(UNSIGNED)，MSSQL默认就是无符号的。</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>SMALLINT</td>
+<td></td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+<td></td>
+</tr>
+<tr>
+<td>BIT</td>
+<td>TINYINT(1)</td>
+<td></td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>FLOAT</td>
+<td>Precision value is used for storage size in both</td>
+</tr>
+<tr>
+<td>REAL</td>
+<td>FLOAT</td>
+<td></td>
+</tr>
+<tr>
+<td>NUMERIC</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>MONEY</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>SMALLMONEY</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>CHAR</td>
+<td>CHAR/LONGTEXT</td>
+<td>Depending on its length. MySQL Server 5.5 and above can have CHAR columns with a length up to 255 characters. Anything larger is migrated as LONGTEXT</td>
+</tr>
+<tr>
+<td>NCHAR</td>
+<td>CHAR/LONGTEXT</td>
+<td>Depending on its length. MySQL Server 5.5 and above can have VARCHAR columns with a length up to 65535 characters. Anything larger is migrated to one of the TEXT blob types. In MySQL, character set of strings depend on the column character set instead of the datatype.</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR/MEDIUMTEXT/LONGTEXT</td>
+<td>Depending on its length. MySQL Server 5.5 and above can have VARCHAR columns with a length up to 65535 characters. Anything larger is migrated to one of the TEXT blob types.</td>
+</tr>
+<tr>
+<td>NVARCHAR</td>
+<td>VARCHAR/MEDIUMTEXT/LONGTEXT</td>
+<td>Depending on its length. MySQL Server 5.5 and above can have VARCHAR columns with a length up to 65535 characters. Anything larger is migrated to one of the TEXT blob types. In MySQL, character set of strings depend on the column character set instead of the datatype. 如果是NVARCHAR(max) 其长度为2G，需要MySQL里面的LONGTEXT</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>DATE</td>
+<td></td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>DATETIME</td>
+<td></td>
+</tr>
+<tr>
+<td>DATETIME2</td>
+<td>DATETIME</td>
+<td>Date range in MySQL is ‘1000-01-01 00:00:00.000000’ to ‘9999-12-31 23:59:59.999999’. Note: fractional second values are only stored as of MySQL Server 5.6.4</td>
+</tr>
+<tr>
+<td>SMALLDATETIME</td>
+<td>DATETIME</td>
+<td></td>
+</tr>
+<tr>
+<td>DATETIMEOFFSET</td>
+<td>DATETIME</td>
+<td></td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>TIME</td>
+<td></td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+<td></td>
+</tr>
+<tr>
+<td>ROWVERSION</td>
+<td>TIMESTAMP</td>
+<td></td>
+</tr>
+<tr>
+<td>BINARY</td>
+<td>BINARY/MEDIUMBLOB/LONGBLOB</td>
+<td>Depending on its length</td>
+</tr>
+<tr>
+<td>VARBINARY</td>
+<td>VARBINARY/MEDIUMBLOB/LONGBLOB</td>
+<td>Depending on its length</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>VARCHAR/MEDIUMTEXT/LONGTEXT</td>
+<td>Depending on its length</td>
+</tr>
+<tr>
+<td>NTEXT</td>
+<td>VARCHAR/MEDIUMTEXT/LONGTEXT</td>
+<td>Depending on its length</td>
+</tr>
+<tr>
+<td>IMAGE</td>
+<td>TINYBLOB/MEDIUMBLOB/LONGBLOB</td>
+<td>Depending on its length</td>
+</tr>
+<tr>
+<td>SQL_VARIANT</td>
+<td>not migrated</td>
+<td>There is not specific support for this datatype.</td>
+</tr>
+<tr>
+<td>TABLE</td>
+<td>not migrated</td>
+<td>There is not specific support for this datatype.</td>
+</tr>
+<tr>
+<td>HIERARCHYID</td>
+<td>not migrated</td>
+<td>There is not specific support for this datatype.</td>
+</tr>
+<tr>
+<td>UNIQUEIDENTIFIER</td>
+<td>VARCHAR(64)</td>
+<td>A unique flag set in MySQL. There is not specific support for inserting unique identifier values.</td>
+</tr>
+<tr>
+<td>SYSNAME</td>
+<td>VARCHAR(160)</td>
+<td></td>
+</tr>
+<tr>
+<td>XML</td>
+<td>TEXT</td>
+</tr>
+</tbody>
+</table>
+<p>一些转换过程中的问题：</p>
+<ul>
+<li>identity 转化为 auto increment，如果identity设置了起始值，则需要在MySQL表上设置<code>auto_increment = start_num</code>,如果indentity设置了步长，则只能在MySQL存储引擎上设置，MySQL不支持单表的步长</li>
+</ul>
+<p>翻译的时候结合正则表达式会快很多，我本次翻译120多张表总共花了差不多一个小时。翻译完成之后在MySQL中执行一下，我们就建立好了Schema了。接下来开始迁移数据。</p>
+<p>如果觉得全部手动翻译太麻烦，可以借助以下工具完成一个初步的翻译然后自己再检验修改：</p>
+<ul>
+<li><a href="http://www.sqlines.com/sql-server-to-mysql#sqlines-sql-converter-tool" target="_blank" rel="external">http://www.sqlines.com/sql-server-to-mysql#sqlines-sql-converter-tool</a></li>
+<li><a href="http://burrist.com/?page_id=535" target="_blank" rel="external">http://burrist.com/?page_id=535</a></li>
+<li><a href="http://sql-hub.com/Page/index.php?Shortname=amstomy" target="_blank" rel="external">http://sql-hub.com/Page/index.php?Shortname=amstomy</a></li>
+</ul>
+<h2 id="调整字符编码集"><a href="#调整字符编码集" class="headerlink" title="调整字符编码集"></a>调整字符编码集</h2><p>需要使MySQL的字符集和SQLServer一致，查看MSSQL字符集<code>SELECT SERVERPROPERTY(N&#39;Collation&#39;)</code>，结果为<code>Chinese_PRC_CI_AS</code>，这里要注意一点，SQLServer的<code>Collation（排序规则）</code>不仅仅是排序规则，同时也设定了字符集。这一点和MySQL不同（MySQL字符集和排序规则是分开的）。下面是MySQL的字符集相关命令：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><div class="line"><span class="keyword">SHOW</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span>; <span class="comment">--查看所有支持的字符集及其默认排序规则</span></div><div class="line"><span class="keyword">SHOW</span> <span class="keyword">COLLATION</span>; <span class="comment">--查看所有排序规则</span></div><div class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'character%'</span>; <span class="comment">--查看系统设置的字符集及其默认排序规则</span></div><div class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'collation%'</span>; <span class="comment">--查看系统设置的排序规则</span></div></pre></td></tr></table></figure>
+<p>MSSQL中的<code>Chinese_PRC_CI_AS</code>表示UNICODE字符集，我们需要在MySQL中使用utf-8即可，至于排序规则就先使用utf-8默认的排序规则。修改MySQL字符集可以使用<code>set</code>命令也可以修改<code>my.ini</code>配置文件并且重启服务器，具体方式可以参考：<a href="http://database.51cto.com/art/201010/229167.htm" target="_blank" rel="external">http://database.51cto.com/art/201010/229167.htm</a> ，修改后不会影响已经存在的表和列，因此可能需要修改已存在的<strong>库，表和列</strong>的字符编码：<a href="http://www.jianshu.com/p/a18269a4870e" target="_blank" rel="external">http://www.jianshu.com/p/a18269a4870e</a> 。注意set只在当前连接中有效，且<strong>列的默认编码继承表</strong>，<strong>表继承库</strong>。</p>
+<h2 id="迁移数据"><a href="#迁移数据" class="headerlink" title="迁移数据"></a>迁移数据</h2><p>建立好完整的Schema之后就可以开始迁移数据了。数据迁移的方式有很多种，下面是我用过的一些方式：</p>
+<ul>
+<li>编写程序，同时连接两边的数据库，从一边读取，一边插入。该方式主要缺点是迁移速度慢，数据量较大时可能几个小时才能完成一次迁移（笔者一张800W数据的表迁移了4个多小时，当然当天的网络也比较慢），迁移速度低的主要原因是网络以及INSERT语句的开销。</li>
+<li>从一个数据库导出文件，然后拷贝到另一个数据库中去加载。该方法不受网速影响，同时导出和导入速度都很快。主要缺点是数据库都要支持导入导出功能且格式相同。比如：MSSQL导出文本文件的功能有限，不支持导出CSV，导出SQL文件也需要自己编写存储过程实现。而MySQL则同时支持.SQL文件和CSV的导入导出</li>
+</ul>
+<p>笔者本次迁移的数据库大小接近6G，因此采用文件的方式导出导入，由于MSSQL本身功能有限，且手动导出流程繁琐，故使用pyetl程序来完成文件的导出和导入这一步。值得一提的是，pyetl支持多种不同关系型数据库文件以及CSV文件中数据的抽取，转换和迁移; 同时也支持多种模式的迁移，速度也非常快。本工具由笔者编写，有任何使用上的问题均可提出。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://stackoverflow.com/questions/11131958/what-is-the-maximum-characters-for-the-nvarcharmax" target="_blank" rel="external">https://stackoverflow.com/questions/11131958/what-is-the-maximum-characters-for-the-nvarcharmax</a></li>
+<li><a href="https://stackoverflow.com/questions/168736/how-do-you-set-a-default-value-for-a-mysql-datetime-column" target="_blank" rel="external">https://stackoverflow.com/questions/168736/how-do-you-set-a-default-value-for-a-mysql-datetime-column</a></li>
+<li><a href="https://stackoverflow.com/questions/46134550/mysql-set-default-id-uuid" target="_blank" rel="external">https://stackoverflow.com/questions/46134550/mysql-set-default-id-uuid</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/alter-table.html#alter-table-character-set" target="_blank" rel="external">https://dev.mysql.com/doc/refman/5.7/en/alter-table.html#alter-table-character-set</a></li>
+<li><a href="https://baike.baidu.com/item/Chinese_PRC_CI_AS" target="_blank" rel="external">https://baike.baidu.com/item/Chinese_PRC_CI_AS</a></li>
+<li><a href="http://www.sgact.com/Article/Details/D38D562D356E1DC43D656C1486393D45" target="_blank" rel="external">http://www.sgact.com/Article/Details/D38D562D356E1DC43D656C1486393D45</a></li>
+<li><a href="https://segmentfault.com/q/1010000000132450" target="_blank" rel="external">https://segmentfault.com/q/1010000000132450</a></li>
+<li><a href="http://database.51cto.com/art/201010/229167.htm" target="_blank" rel="external">http://database.51cto.com/art/201010/229167.htm</a></li>
+</ul>
+<p>网上有关MSSQL导出文本文件的资料，可以发现所有方式都不支持分隔符转义：</p>
+<ul>
+<li>导出方式参考：<a href="https://stackoverflow.com/a/14266993/6364963" target="_blank" rel="external">https://stackoverflow.com/a/14266993/6364963</a></li>
+<li>bcp文档：<a href="https://docs.microsoft.com/en-us/sql/tools/bcp-utility" target="_blank" rel="external">https://docs.microsoft.com/en-us/sql/tools/bcp-utility</a> bcp要使用-U -P制定用户密码，如果不设置-c，则会要求输入一系列选项，使用-w保存Unicode,-t设置分隔符，参考：<a href="http://www.cnblogs.com/jeffry/p/5620385.html" target="_blank" rel="external">http://www.cnblogs.com/jeffry/p/5620385.html</a></li>
+</ul>
+<p>MSSQL 不支持CSV的官方声明：</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/import-export/bulk-import-and-export-of-data-sql-server" target="_blank" rel="external">https://docs.microsoft.com/en-us/sql/relational-databases/import-export/bulk-import-and-export-of-data-sql-server</a></li>
+</ul>
+<p>MySQL为什么<code>LOAD FILE</code>比<code>INSERT</code>更快：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/3635166/how-to-import-csv-file-to-mysql-table" target="_blank" rel="external">https://stackoverflow.com/questions/3635166/how-to-import-csv-file-to-mysql-table</a></li>
+<li><a href="https://dba.stackexchange.com/questions/16809/why-is-load-data-infile-faster-than-normal-insert-statements" target="_blank" rel="external">https://dba.stackexchange.com/questions/16809/why-is-load-data-infile-faster-than-normal-insert-statements</a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2017/12/05/半自动化迁移MSSQL数据到MySQL/" data-id="cjatmy3uu000lvj3iydrqdd4z" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/toaco" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="stack-overflow" href="https://stackoverflow.com/users/6364963/jeffery" target="_blank">
+                        <i class="icon fa fa-stack-overflow"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/12/05/使用NuGet-安装-MySQL-Connector-NET/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">使用NuGet 安装 MySQL Connector/NET</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=234018358,1177866074&fm=27&gp=0.jpg)" alt="半自动化迁移MSSQL数据到MySQL" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/数据迁移/">数据迁移</a></p>
+                            <p class="item-title"><a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/" class="title">半自动化迁移MSSQL数据到MySQL</a></p>
+                            <p class="item-date"><time datetime="2017-12-05T13:00:43.000Z" itemprop="datePublished">2017-12-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/12/05/使用NuGet-安装-MySQL-Connector-NET/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512487239416&di=a565e50fbb87bdef59837f2894cc4d4c&imgtype=0&src=http%3A%2F%2Fimages2017.cnblogs.com%2Fblog%2F674898%2F201711%2F674898-20171106234709872-1834874779.png)" alt="使用NuGet 安装 MySQL Connector/NET" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/编程语言/">编程语言</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/编程语言/C/">C#</a></p>
+                            <p class="item-title"><a href="/2017/12/05/使用NuGet-安装-MySQL-Connector-NET/" class="title">使用NuGet 安装 MySQL Connector/NET</a></p>
+                            <p class="item-date"><time datetime="2017-12-05T12:28:35.000Z" itemprop="datePublished">2017-12-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3410550269,4243456057&fm=27&gp=0.jpg)" alt="迁移MSSQL到MySQL-使用Workbench" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/数据迁移/">数据迁移</a></p>
+                            <p class="item-title"><a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/" class="title">迁移MSSQL到MySQL-使用Workbench</a></p>
+                            <p class="item-date"><time datetime="2017-11-28T09:26:19.000Z" itemprop="datePublished">2017-11-28</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/11/17/IIS7体系结构简介/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://media-www-iis.azureedge.net/media/7188132/introduction-to-iis-architecture-101-overviewofhttprequest.png)" alt="IIS7体系结构简介" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/服务器/">服务器</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/服务器/IIS/">IIS</a></p>
+                            <p class="item-title"><a href="/2017/11/17/IIS7体系结构简介/" class="title">IIS7体系结构简介</a></p>
+                            <p class="item-date"><time datetime="2017-11-17T08:56:38.000Z" itemprop="datePublished">2017-11-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/11/15/OpenCV-表格文字识别/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E5%8A%A0%E4%BA%86%E8%BE%B9%E6%A1%86%E7%9A%842.jpg)" alt="OpenCV 表格文字识别" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/CS/">CS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/CS/图像处理/">图像处理</a></p>
+                            <p class="item-title"><a href="/2017/11/15/OpenCV-表格文字识别/" class="title">OpenCV 表格文字识别</a></p>
+                            <p class="item-date"><time datetime="2017-11-15T10:38:36.000Z" itemprop="datePublished">2017-11-15</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/">CS</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/图像处理/">图像处理</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/自然语言处理/">自然语言处理</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/CSS/">CSS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/数据迁移/">数据迁移</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/IIS/">IIS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/C/">C#</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件工程/">软件工程</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CS/" style="font-size: 16.67px;">CS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CSS布局/" style="font-size: 10px;">CSS布局</a> <a href="/tags/CSS盒模型/" style="font-size: 10px;">CSS盒模型</a> <a href="/tags/IIS/" style="font-size: 10px;">IIS</a> <a href="/tags/MSSQL/" style="font-size: 13.33px;">MSSQL</a> <a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/MySQL-Workbench/" style="font-size: 10px;">MySQL Workbench</a> <a href="/tags/OpenCV/" style="font-size: 13.33px;">OpenCV</a> <a href="/tags/Pyetl/" style="font-size: 10px;">Pyetl</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/前后端分离/" style="font-size: 10px;">前后端分离</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/图像处理/" style="font-size: 13.33px;">图像处理</a> <a href="/tags/数据库/" style="font-size: 20px;">数据库</a> <a href="/tags/数据迁移/" style="font-size: 13.33px;">数据迁移</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a> <a href="/tags/机器翻译/" style="font-size: 10px;">机器翻译</a> <a href="/tags/编程语言/" style="font-size: 10px;">编程语言</a> <a href="/tags/自然语言处理/" style="font-size: 10px;">自然语言处理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/软件工程/" style="font-size: 10px;">软件工程</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://coder-wen.github.io/">Coder-wen&#39;s Blog</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2017 Jeffrey Teo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'jefffffrey';
+    
+    
+    var disqus_url = 'http://yoursite.com/2017/12/05/半自动化迁移MSSQL数据到MySQL/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
