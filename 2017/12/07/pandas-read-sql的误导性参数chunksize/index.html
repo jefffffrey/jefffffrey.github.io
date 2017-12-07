@@ -3,17 +3,26 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     
-    <title>标签：: MSSQL | Jeffrey&#39;s Blog</title>
+    <title>pandas.read_sql的误导性参数chunksize | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Jeffrey&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/MSSQL/index.html">
+        <meta name="keywords" content="数据库,数据迁移,pandas" />
+    
+    <meta name="description" content="官方文档的描述是该参数返回一个迭代的对象，该对象包含很多个chunksize大小的块。容易误导人的是设置chunksize之后，从数据获取数据就不会一次返回所有的数据，而是分块的返回。 更烦的是这个情况还不容易察觉。当使用sqlalchemy+pymssql连接MSSQL导出一张100W行数据的表，chunksize给人的表现看起来就是每次只获取部分，内存并没有太大变化，而当使用sqlalchem">
+<meta name="keywords" content="数据库,数据迁移,pandas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pandas.read_sql的误导性参数chunksize">
+<meta property="og:url" content="http://yoursite.com/2017/12/07/pandas-read-sql的误导性参数chunksize/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="官方文档的描述是该参数返回一个迭代的对象，该对象包含很多个chunksize大小的块。容易误导人的是设置chunksize之后，从数据获取数据就不会一次返回所有的数据，而是分块的返回。 更烦的是这个情况还不容易察觉。当使用sqlalchemy+pymssql连接MSSQL导出一张100W行数据的表，chunksize给人的表现看起来就是每次只获取部分，内存并没有太大变化，而当使用sqlalchem">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512645818530&di=b29621c553626cc8164e388ee75c60cd&imgtype=0&src=http%3A%2F%2Fstatic.open-open.com%2Flib%2FuploadImg%2F20121030%2F20121030101946_595.png">
+<meta property="og:updated_time" content="2017-12-07T08:36:47.494Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jeffrey&#39;s Blog">
+<meta name="twitter:title" content="pandas.read_sql的误导性参数chunksize">
+<meta name="twitter:description" content="官方文档的描述是该参数返回一个迭代的对象，该对象包含很多个chunksize大小的块。容易误导人的是设置chunksize之后，从数据获取数据就不会一次返回所有的数据，而是分块的返回。 更烦的是这个情况还不容易察觉。当使用sqlalchemy+pymssql连接MSSQL导出一张100W行数据的表，chunksize给人的表现看起来就是每次只获取部分，内存并没有太大变化，而当使用sqlalchem">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512645818530&di=b29621c553626cc8164e388ee75c60cd&imgtype=0&src=http%3A%2F%2Fstatic.open-open.com%2Flib%2FuploadImg%2F20121030%2F20121030101946_595.png">
     
 
     
@@ -126,128 +135,137 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>标签：: <em>MSSQL</em>
+    <a class="page-title-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据库/数据迁移/">数据迁移</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-pandas-read-sql的误导性参数chunksize" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2017" class="archive-year"><i class="icon fa fa-calendar-o"></i>2017</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=234018358,1177866074&fm=27&gp=0.jpg)" alt="半自动化迁移MSSQL数据到MySQL" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/12/05/半自动化迁移MSSQL数据到MySQL/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/数据迁移/">数据迁移</a>
-            </div>
-            <div class="date"><time datetime="2017-12-05T13:00:43.000Z" itemprop="datePublished">2017-12-05</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/">半自动化迁移MSSQL数据到MySQL</a>
+        pandas.read_sql的误导性参数chunksize
         </h1>
     
 
-        <p class="article-excerpt">
-            本次数据迁移的流程：
-
-手动流程：导出SQLServer的DDL，然后翻译成MySQL的DDL并且在MySQL中执行
-自动流程：使用Pyetl完成数据的迁移
-
-翻译DDL到处SQLServer中的DDL可以通过编写命令获得，也可以使用SQLServer的管理工具获得，其中管理工具最方便且靠谱，下面是使用该方式的教程：
-
-https://jingyan.baidu.com/article/3ea51
-        </p>
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/12/07/pandas-read-sql的误导性参数chunksize/" class="article-date">
+            <time datetime="2017-12-07T08:34:29.000Z" itemprop="datePublished">2017-12-07</time>
+        </a>
     </div>
-</article>
-    
 
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3410550269,4243456057&fm=27&gp=0.jpg)" alt="迁移MSSQL到MySQL-使用Workbench" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/28/迁移MSSQL到MySQL-使用Workbench/">0</span>
-    
-</span>
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/pandas/">pandas</a>, <a class="tag-link" href="/tags/数据库/">数据库</a>, <a class="tag-link" href="/tags/数据迁移/">数据迁移</a>
+    </div>
 
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/数据迁移/">数据迁移</a>
             </div>
-            <div class="date"><time datetime="2017-11-28T09:26:19.000Z" itemprop="datePublished">2017-11-28</time></div>
-        </div>
         
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/">迁移MSSQL到MySQL-使用Workbench</a>
-        </h1>
-    
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>官方文档的描述是该参数返回一个迭代的对象，该对象包含很多个<code>chunksize</code>大小的块。容易误导人的是设置<code>chunksize</code>之后，从数据获取数据就不会一次返回所有的数据，而是分块的返回。</p>
+<p>更烦的是这个情况还不容易察觉。当使用sqlalchemy+pymssql连接MSSQL导出一张100W行数据的表，chunksize给人的表现看起来就是每次只获取部分，内存并没有太大变化，而当使用sqlalchemy+mysql连接MySQL时，就会发现内存疯涨，究其原因发现正是因为mysql获取了从MySQL获取所有数据到内存之后组装成结果集然后游标对该结果集进行操作。</p>
+<p>网上有很多人遇到过同样的问题：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/18107953/how-to-create-a-large-pandas-dataframe-from-an-sql-query-without-running-out-of" target="_blank" rel="external">https://stackoverflow.com/questions/18107953/how-to-create-a-large-pandas-dataframe-from-an-sql-query-without-running-out-of</a></li>
+<li><a href="https://github.com/pandas-dev/pandas/issues/12265" target="_blank" rel="external">https://github.com/pandas-dev/pandas/issues/12265</a></li>
+</ul>
+<p>解决办法就是使用sqlalchemy的执行命令时设置<code>execution_options</code>且<code>stream_results</code>参数为<code>True</code>, 或者使用服务器游标:<a href="http://docs.sqlalchemy.org/en/latest/core/engines.html#sqlalchemy.create_engine" target="_blank" rel="external"><code>create_engine()</code></a>时设置参数<code>server_side_cursors=True</code> .</p>
+<blockquote>
+<ul>
+<li><strong>stream_results</strong> – Available on: Connection, statement. Indicate to the dialect that results should be “streamed” and not pre-buffered, if possible. This is a limitation of many DBAPIs. The flag is currently understood only by the psycopg2, mysqldb and pymysql dialects.</li>
+<li>Server-side cursor support is available for the MySQLdb and PyMySQL dialects. From a MySQL point of view this means that the <code>MySQLdb.cursors.SSCursor</code> or<code>pymysql.cursors.SSCursor</code> class is used when building up the cursor which will receive results. The most typical way of invoking this feature is via the<a href="http://docs.sqlalchemy.org/en/latest/core/connections.html#sqlalchemy.engine.Connection.execution_options.params.stream_results" target="_blank" rel="external"><code>Connection.execution_options.stream_results</code></a> connection execution option. Server side cursors can also be enabled for all SELECT statements unconditionally by passing <code>server_side_cursors=True</code> to <a href="http://docs.sqlalchemy.org/en/latest/core/engines.html#sqlalchemy.create_engine" target="_blank" rel="external"><code>create_engine()</code></a>.</li>
+</ul>
+</blockquote>
+<p>了解MySQL服务器游标可以看我的另一篇文章：MySQL服务器端游标详解．</p>
 
-        <p class="article-excerpt">
-            官方文档教程：使用Workbench迁移MSSQL数据到MySQL，该流程需要用到iodbc，安装一下：
-sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
-之后按着教程走，在Fetch Schemas List这一步遇到问题，Google一下发现2年前有人遇到同样的问题，解决办法是升级Workbench到最新版本，然后我已经是
-        </p>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2017/12/07/pandas-read-sql的误导性参数chunksize/" data-id="cjaw8bc18000kn13iyzsxr4s7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
+
+    <section id="comments">
     
-        </div>
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
     
-
-
-    </div></section>
-
+    </section>
 
 
                         </div>
@@ -276,6 +294,19 @@ sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/12/07/MySQL服务器端游标详解/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">MySQL服务器端游标详解</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -453,11 +484,13 @@ sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
     var disqus_shortname = 'jefffffrey';
     
     
+    var disqus_url = 'http://yoursite.com/2017/12/07/pandas-read-sql的误导性参数chunksize/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>

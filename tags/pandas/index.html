@@ -3,13 +3,13 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     
-    <title>标签：: MSSQL | Jeffrey&#39;s Blog</title>
+    <title>标签：: pandas | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta property="og:type" content="website">
 <meta property="og:title" content="Jeffrey&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/MSSQL/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/pandas/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
@@ -126,7 +126,7 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>标签：: <em>MSSQL</em>
+    <i class="icon fa fa-tag"></i>标签：: <em>pandas</em>
     </h1>
 </div>
                         <div class="main-body-content">
@@ -149,17 +149,17 @@
         <article class="article article-summary">
     <div class="article-summary-inner">
         
-        <a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/" class="thumbnail">
+        <a href="/2017/12/07/pandas-read-sql的误导性参数chunksize/" class="thumbnail">
     
     
-        <span style="background-image:url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=234018358,1177866074&fm=27&gp=0.jpg)" alt="半自动化迁移MSSQL数据到MySQL" class="thumbnail-image"></span>
+        <span style="background-image:url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512645818530&di=b29621c553626cc8164e388ee75c60cd&imgtype=0&src=http%3A%2F%2Fstatic.open-open.com%2Flib%2FuploadImg%2F20121030%2F20121030101946_595.png)" alt="pandas.read_sql的误导性参数chunksize" class="thumbnail-image"></span>
     
     
         
 <span class="comment-counter">
     <i class="fa fa-comments-o"></i>
     
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/12/05/半自动化迁移MSSQL数据到MySQL/">0</span>
+        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/12/07/pandas-read-sql的误导性参数chunksize/">0</span>
     
 </span>
 
@@ -172,72 +172,18 @@
             <div class="category">
             <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/数据迁移/">数据迁移</a>
             </div>
-            <div class="date"><time datetime="2017-12-05T13:00:43.000Z" itemprop="datePublished">2017-12-05</time></div>
+            <div class="date"><time datetime="2017-12-07T08:34:29.000Z" itemprop="datePublished">2017-12-07</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/">半自动化迁移MSSQL数据到MySQL</a>
+        <a href="/2017/12/07/pandas-read-sql的误导性参数chunksize/">pandas.read_sql的误导性参数chunksize</a>
         </h1>
     
 
         <p class="article-excerpt">
-            本次数据迁移的流程：
-
-手动流程：导出SQLServer的DDL，然后翻译成MySQL的DDL并且在MySQL中执行
-自动流程：使用Pyetl完成数据的迁移
-
-翻译DDL到处SQLServer中的DDL可以通过编写命令获得，也可以使用SQLServer的管理工具获得，其中管理工具最方便且靠谱，下面是使用该方式的教程：
-
-https://jingyan.baidu.com/article/3ea51
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3410550269,4243456057&fm=27&gp=0.jpg)" alt="迁移MSSQL到MySQL-使用Workbench" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/28/迁移MSSQL到MySQL-使用Workbench/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/数据迁移/">数据迁移</a>
-            </div>
-            <div class="date"><time datetime="2017-11-28T09:26:19.000Z" itemprop="datePublished">2017-11-28</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/">迁移MSSQL到MySQL-使用Workbench</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            官方文档教程：使用Workbench迁移MSSQL数据到MySQL，该流程需要用到iodbc，安装一下：
-sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
-之后按着教程走，在Fetch Schemas List这一步遇到问题，Google一下发现2年前有人遇到同样的问题，解决办法是升级Workbench到最新版本，然后我已经是
+            官方文档的描述是该参数返回一个迭代的对象，该对象包含很多个chunksize大小的块。容易误导人的是设置chunksize之后，从数据获取数据就不会一次返回所有的数据，而是分块的返回。
+更烦的是这个情况还不容易察觉。当使用sqlalchemy+pymssql连接MSSQL导出一张100W行数据的表，chunksize给人的表现看起来就是每次只获取部分，内存并没有太大变化，而当使用sqlalchem
         </p>
     </div>
 </article>

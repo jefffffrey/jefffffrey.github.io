@@ -3,17 +3,26 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     
-    <title>标签：: MSSQL | Jeffrey&#39;s Blog</title>
+    <title>MySQL服务器端游标详解 | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Jeffrey&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/MSSQL/index.html">
+        <meta name="keywords" content="数据库,MySQL" />
+    
+    <meta name="description" content="MySQL的服务器游标是通过C API中的mysql_stmt_attr_set() 实现的．同时服务器中存储过程的游标也采用相同的实现． MySQL服务器游标实现方式是通过临时表实现，首先将其放在Memory表中，如果数据大小超过max_heap_table_size 和 tmp_table_size ，就会变成MyISAM表，此时获取数据可能会变慢． 和客户端游标的区别客户端游标是client">
+<meta name="keywords" content="数据库,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL服务器端游标详解">
+<meta property="og:url" content="http://yoursite.com/2017/12/07/MySQL服务器端游标详解/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="MySQL的服务器游标是通过C API中的mysql_stmt_attr_set() 实现的．同时服务器中存储过程的游标也采用相同的实现． MySQL服务器游标实现方式是通过临时表实现，首先将其放在Memory表中，如果数据大小超过max_heap_table_size 和 tmp_table_size ，就会变成MyISAM表，此时获取数据可能会变慢． 和客户端游标的区别客户端游标是client">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2102198764,3058378020&fm=27&gp=0.jpg">
+<meta property="og:updated_time" content="2017-12-07T08:34:02.529Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jeffrey&#39;s Blog">
+<meta name="twitter:title" content="MySQL服务器端游标详解">
+<meta name="twitter:description" content="MySQL的服务器游标是通过C API中的mysql_stmt_attr_set() 实现的．同时服务器中存储过程的游标也采用相同的实现． MySQL服务器游标实现方式是通过临时表实现，首先将其放在Memory表中，如果数据大小超过max_heap_table_size 和 tmp_table_size ，就会变成MyISAM表，此时获取数据可能会变慢． 和客户端游标的区别客户端游标是client">
+<meta name="twitter:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2102198764,3058378020&fm=27&gp=0.jpg">
     
 
     
@@ -126,128 +135,140 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>标签：: <em>MSSQL</em>
+    <a class="page-title-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据库/MySQL/">MySQL</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-MySQL服务器端游标详解" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2017" class="archive-year"><i class="icon fa fa-calendar-o"></i>2017</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=234018358,1177866074&fm=27&gp=0.jpg)" alt="半自动化迁移MSSQL数据到MySQL" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/12/05/半自动化迁移MSSQL数据到MySQL/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/数据迁移/">数据迁移</a>
-            </div>
-            <div class="date"><time datetime="2017-12-05T13:00:43.000Z" itemprop="datePublished">2017-12-05</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/">半自动化迁移MSSQL数据到MySQL</a>
+        MySQL服务器端游标详解
         </h1>
     
 
-        <p class="article-excerpt">
-            本次数据迁移的流程：
-
-手动流程：导出SQLServer的DDL，然后翻译成MySQL的DDL并且在MySQL中执行
-自动流程：使用Pyetl完成数据的迁移
-
-翻译DDL到处SQLServer中的DDL可以通过编写命令获得，也可以使用SQLServer的管理工具获得，其中管理工具最方便且靠谱，下面是使用该方式的教程：
-
-https://jingyan.baidu.com/article/3ea51
-        </p>
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/12/07/MySQL服务器端游标详解/" class="article-date">
+            <time datetime="2017-12-07T08:31:20.000Z" itemprop="datePublished">2017-12-07</time>
+        </a>
     </div>
-</article>
-    
 
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3410550269,4243456057&fm=27&gp=0.jpg)" alt="迁移MSSQL到MySQL-使用Workbench" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/28/迁移MSSQL到MySQL-使用Workbench/">0</span>
-    
-</span>
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/MySQL/">MySQL</a>, <a class="tag-link" href="/tags/数据库/">数据库</a>
+    </div>
 
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/数据库/">数据库</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据库/数据迁移/">数据迁移</a>
             </div>
-            <div class="date"><time datetime="2017-11-28T09:26:19.000Z" itemprop="datePublished">2017-11-28</time></div>
-        </div>
         
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2017/11/28/迁移MSSQL到MySQL-使用Workbench/">迁移MSSQL到MySQL-使用Workbench</a>
-        </h1>
-    
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>MySQL的服务器游标是通过C API中的<a href="https://dev.mysql.com/doc/refman/5.7/en/mysql-stmt-attr-set.html" target="_blank" rel="external"><code>mysql_stmt_attr_set()</code></a> 实现的．同时<strong>服务器中存储过程的游标也采用相同的实现</strong>．</p>
+<p>MySQL服务器游标实现方式是通过临时表实现，首先将其放在Memory表中，如果数据大小超过<a href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_heap_table_size" target="_blank" rel="external"><code>max_heap_table_size</code></a> 和 <a href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_tmp_table_size" target="_blank" rel="external"><code>tmp_table_size</code></a> ，就会变成MyISAM表，此时获取数据可能会变慢．</p>
+<h2 id="和客户端游标的区别"><a href="#和客户端游标的区别" class="headerlink" title="和客户端游标的区别"></a>和客户端游标的区别</h2><p>客户端游标是client先发送select请求给Server后，Server根据条件筛选符合条件的记录，然后就会把记录发送到自己的发送buffer,等buffer满了就flush缓存（这里要注意的是如果client的接受缓存满了，那么Server的发送就会阻塞主，直到client的接受缓存空闲。），通过网络发送到client的接受缓存，然后Client就会从接受缓存里面逐个读取记录到resultset,直到所有记录都放到了resultset。</p>
+<p>服务器边的游标则是mysqlclient一次从自己的接受缓存读取fetchSize个记录（如果buffer不够fetchSize也没关系，因为Server一直在向这个buffer 刷新数据）。mysqlclient获取fetchSize个记录放到mysqlclient的游标内部的数组里面，游标获取的时候是从数组里面获取数据，如果数组为空了，在向buffer获取fetchSize个记录。</p>
+<h2 id="特点和限制"><a href="#特点和限制" class="headerlink" title="特点和限制"></a>特点和限制</h2><ul>
+<li>游标是只读的，不支持<code>UPDATE WHERE CURRENT OF</code> 和 <code>DELETE WHERE CURRENT OF</code></li>
+<li>提交后游标就会关闭</li>
+<li>游标是敏感的，非滚动的</li>
+<li>游标没有名字，语句处理器表现为该游标的ＩＤ</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/cursor-restrictions.html" target="_blank" rel="external">https://dev.mysql.com/doc/refman/5.7/en/cursor-restrictions.html</a></li>
+</ul>
+<ul>
+<li><a href="https://stackoverflow.com/questions/24676111/streaming-mysql-resultset-with-fixed-number-of-results-at-a-time" target="_blank" rel="external">https://stackoverflow.com/questions/24676111/streaming-mysql-resultset-with-fixed-number-of-results-at-a-time</a></li>
+<li><a href="https://geert.vanderkelen.org/2010/simulating-server-side-cursors-with-mysql-connectorpython/" target="_blank" rel="external">https://geert.vanderkelen.org/2010/simulating-server-side-cursors-with-mysql-connectorpython/</a></li>
+<li><a href="http://www.jianshu.com/p/c4b194b269c1" target="_blank" rel="external">http://www.jianshu.com/p/c4b194b269c1</a></li>
+</ul>
 
-        <p class="article-excerpt">
-            官方文档教程：使用Workbench迁移MSSQL数据到MySQL，该流程需要用到iodbc，安装一下：
-sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
-之后按着教程走，在Fetch Schemas List这一步遇到问题，Google一下发现2年前有人遇到同样的问题，解决办法是升级Workbench到最新版本，然后我已经是
-        </p>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2017/12/07/MySQL服务器端游标详解/" data-id="cjaw8bc11000gn13iqilge01o" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
+
+    <section id="comments">
     
-        </div>
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
     
-
-
-    </div></section>
-
+    </section>
 
 
                         </div>
@@ -276,6 +297,29 @@ sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/12/07/pandas-read-sql的误导性参数chunksize/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            pandas.read_sql的误导性参数chunksize
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2017/12/05/半自动化迁移MSSQL数据到MySQL/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">半自动化迁移MSSQL数据到MySQL</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -453,11 +497,13 @@ sudo apt-get install iodbcsudo apt-get install libiodbc2-dev
     var disqus_shortname = 'jefffffrey';
     
     
+    var disqus_url = 'http://yoursite.com/2017/12/07/MySQL服务器端游标详解/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
