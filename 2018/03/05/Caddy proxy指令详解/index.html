@@ -3,17 +3,26 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     
-    <title>标签：: CSS | Jeffrey&#39;s Blog</title>
+    <title>Caddy proxy指令详解 | Jeffrey&#39;s Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Jeffrey&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/CSS/index.html">
+        <meta name="keywords" content="服务器,Caddy" />
+    
+    <meta name="description" content="简介Caddy的proxy可以用于配置:  普通的反向代理 负载均衡:支持多策略,健康检查,故障转移 WebSocket代理  开启该指令后,Caddy的proxy中间件会添加一个可用于{upstream}的占位符,用于记录哪一个代理的处理的请求. proxy完整语法格式为: proxy from to... &amp;#123;	policy name [value]	fail_timeout dura">
+<meta name="keywords" content="服务器,Caddy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Caddy proxy指令详解">
+<meta property="og:url" content="http://yoursite.com/2018/03/05/Caddy proxy指令详解/index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="简介Caddy的proxy可以用于配置:  普通的反向代理 负载均衡:支持多策略,健康检查,故障转移 WebSocket代理  开启该指令后,Caddy的proxy中间件会添加一个可用于{upstream}的占位符,用于记录哪一个代理的处理的请求. proxy完整语法格式为: proxy from to... &amp;#123;	policy name [value]	fail_timeout dura">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.booleanworld.com/wp-content/uploads/2017/05/image4219.png">
+<meta property="og:updated_time" content="2018-03-05T08:44:39.325Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jeffrey&#39;s Blog">
+<meta name="twitter:title" content="Caddy proxy指令详解">
+<meta name="twitter:description" content="简介Caddy的proxy可以用于配置:  普通的反向代理 负载均衡:支持多策略,健康检查,故障转移 WebSocket代理  开启该指令后,Caddy的proxy中间件会添加一个可用于{upstream}的占位符,用于记录哪一个代理的处理的请求. proxy完整语法格式为: proxy from to... &amp;#123;	policy name [value]	fail_timeout dura">
+<meta name="twitter:image" content="https://www.booleanworld.com/wp-content/uploads/2017/05/image4219.png">
     
 
     
@@ -126,74 +135,166 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>标签：: <em>CSS</em>
+    <a class="page-title-link" href="/categories/服务器/">服务器</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/服务器/Caddy/">Caddy</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-Caddy proxy指令详解" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2017" class="archive-year"><i class="icon fa fa-calendar-o"></i>2017</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/11/01/深入理解BFC和Margin-Collapse/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oyka0arcw.bkt.clouddn.com/%E5%A4%96%E8%BE%B9%E8%B7%9D%E5%A1%8C%E9%99%B7.png)" alt="深入理解BFC和Margin Collapse" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/11/01/深入理解BFC和Margin-Collapse/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/前端/">前端</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/前端/CSS/">CSS</a>
-            </div>
-            <div class="date"><time datetime="2017-11-01T14:19:05.000Z" itemprop="datePublished">2017-11-01</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2017/11/01/深入理解BFC和Margin-Collapse/">深入理解BFC和Margin Collapse</a>
+        Caddy proxy指令详解
         </h1>
     
 
-        <p class="article-excerpt">
-            BFC定义浮动元素和绝对定位元素，非块级盒子的块级容器（例如 inline-blocks, table-cells, 和 table-captions），以及overflow值不为“visiable”的块级盒子，都会为他们的内容创建新的BFC（块级格式上下文）。
-在BFC中，盒子从顶端开始垂直地一个接一个地排列，两个盒子之间的垂直的间隙是由他们的margin 值所决定的。在一个BFC中，两个相邻的
-        </p>
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/03/05/Caddy proxy指令详解/" class="article-date">
+            <time datetime="2018-03-05T08:40:12.000Z" itemprop="datePublished">2018-03-05</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Caddy/">Caddy</a>, <a class="tag-link" href="/tags/服务器/">服务器</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Caddy的proxy可以用于配置:</p>
+<ol>
+<li>普通的反向代理</li>
+<li>负载均衡:支持多策略,健康检查,故障转移</li>
+<li>WebSocket代理</li>
+</ol>
+<p>开启该指令后,Caddy的proxy中间件会添加一个可用于<code>{upstream}</code>的占位符,用于记录哪一个代理的处理的请求.</p>
+<p>proxy完整语法格式为:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">proxy from to... &#123;</div><div class="line">	policy name [value]</div><div class="line">	fail_timeout duration</div><div class="line">	max_fails integer</div><div class="line">	max_conns integer</div><div class="line">	try_duration duration</div><div class="line">	try_interval duration</div><div class="line">	health_check path</div><div class="line">	health_check_port port</div><div class="line">	health_check_interval interval_duration</div><div class="line">	health_check_timeout timeout_duration</div><div class="line">	header_upstream name value</div><div class="line">	header_downstream name value</div><div class="line">	keepalive number</div><div class="line">	without prefix</div><div class="line">	except ignored_paths...</div><div class="line">	upstream to</div><div class="line">	insecure_skip_verify</div><div class="line">	preset</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>from</strong> 被代理的请求的路径</li>
+<li><strong>to</strong>  代理的断点,可以是多个,支持 http/https/quic/srv/unix/quic, 如果是<code>srv://</code>或者<code>srv+https://</code>则被认为是一个服务定位器,Caddy将通过SRV DNS去解析</li>
+<li><strong>policy</strong> 负载均衡策略,必须有多个后端.如果后端是服务定位器则不可以,可选的有random, least_conn, round_robin, first, ip_hash, uri_hash 和 header, 默认为random</li>
+<li><strong>fail_timeout</strong> 失败了的请求记住多久.如果在这期间达到了max_fails,则被考虑为挂掉了,不会再有请求发送过去,除非失败的请求被忘记了.默认为0,总是可用.</li>
+<li><strong>max_fails</strong> 如果fail_timeout为0则无效,默认为1</li>
+<li><strong>max_conns</strong> 每一个后端的最大请求数,默认0,没有限制,如果达到了返回502错误.</li>
+<li><strong>try_duration</strong>  第一个上游失败了,挂起外面来的请求多久</li>
+<li><strong>try_interval</strong> 某一个上游服务器挂了之后等待多久切换下一个上有服务器,默认250ms. 设置为0并且设置了duration可能占满cpu</li>
+<li><strong>health_check</strong>  设置一个路径,Caddy将定期发出请求,如果返回200和399就认为正常,否则就不正常,然后提前定义的interval间隔里他就是被考虑不正常的.</li>
+<li><strong>health_check_port</strong>  设置一个额外的检查端口,如果是服务定位器就无效</li>
+<li><strong>health_check_interval</strong>  健康检查间隔,默认30s</li>
+<li><strong>health_check_timeout</strong>  检查超时时间,默认60s</li>
+<li><strong>header_upstream</strong> 传递到后方的头,可以多个,也可以用请求占位符</li>
+<li><strong>header_downstream</strong>  修改返回的响应头</li>
+<li><strong>keepalive</strong> 保持多少和后端之间闲置的连接,设置为0关闭keepalive</li>
+<li><strong>without</strong> 去掉的前缀(/api/foo without /api 将访问 /foo. )</li>
+<li><strong>except</strong>设置不代理的路径</li>
+<li><strong>upstream</strong>  基本等同于to配置</li>
+<li><strong>insecure_skip_verify</strong>  重载后端TLS认证,禁用HTTPS的安全功能</li>
+<li><strong>preset</strong> 支持的有websocket和transparent</li>
+</ul>
+<h2 id="Presets"><a href="#Presets" class="headerlink" title="Presets"></a>Presets</h2><p>websocket等价于:</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">header_upstream Connection &#123;&gt;Connection&#125;</div><div class="line">header_upstream Upgrade &#123;&gt;Upgrade&#125;</div></pre></td></tr></table></figure>
+<p>transparent等价于:</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">header_upstream Host &#123;host&#125;</div><div class="line">header_upstream X-Real-IP &#123;remote&#125;</div><div class="line">header_upstream X-Forwarded-For &#123;remote&#125;</div><div class="line">header_upstream X-Forwarded-Proto &#123;scheme&#125;</div></pre></td></tr></table></figure>
+<h2 id="负载均衡策略"><a href="#负载均衡策略" class="headerlink" title="负载均衡策略"></a>负载均衡策略</h2><ul>
+<li><strong>random</strong> (default) - 随机选择</li>
+<li><strong>least_conn</strong> - 选择活跃连接最少的</li>
+<li><strong>round_robin</strong> - 循环选择</li>
+<li><strong>first</strong> - 按照配置中的顺序,选择第一个可用的</li>
+<li><strong>ip_hash</strong> - 基于IP地址的hash值分配</li>
+<li><strong>uri_hash</strong> -  基于URL的hash值分配</li>
+<li><strong>header</strong> -  基于某个请求头的hash值分配</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2018/03/05/Caddy proxy指令详解/" data-id="cjedzar2n000ewp3iuw20h7tk" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
+
+    <section id="comments">
     
-        </div>
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
     
-
-
-    </div></section>
-
+    </section>
 
 
                         </div>
@@ -222,6 +323,19 @@
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/03/05/Caddy标准HTTP指令简介/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">Caddy标准HTTP指令简介</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -399,11 +513,13 @@
     var disqus_shortname = 'jefffffrey';
     
     
+    var disqus_url = 'http://yoursite.com/2018/03/05/Caddy proxy指令详解/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
